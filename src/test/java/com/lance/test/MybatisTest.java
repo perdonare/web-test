@@ -1,6 +1,5 @@
 package com.lance.test;
 
-import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
 import com.lance.persistence.service.IUserService;
 import org.junit.Test;
@@ -8,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
 
 /**
  * Created by perdonare on 2015/5/2.

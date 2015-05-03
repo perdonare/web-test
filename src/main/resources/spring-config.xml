@@ -29,7 +29,7 @@
 
     <!--持久化相关的配置-->
     <import resource="spring-persistence.xml"/>
-    <import resource="spring-mvc-config.xml"/>
+    <import resource="/WEB-INF/spring-mvc-config.xml"/>
 
 
 </beans>
