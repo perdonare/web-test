@@ -10,6 +10,9 @@ $(function () {
         method:'post',
         iconCls:'icon-search',
         url:'test/easyui/json/data',
+        pagination:true,
+        pageSize:5,
+        pageList:[5,10,15],
         columns:[[
             {
                 field:'name',

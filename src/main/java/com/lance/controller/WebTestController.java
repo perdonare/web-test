@@ -1,5 +1,6 @@
 package com.lance.controller;
 
+import com.lance.common.EasyUIModel;
 import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by perdonare on 2015/5/3.
@@ -42,8 +46,37 @@ public class WebTestController {
 
     @RequestMapping(value = "/easyui/json/data",method = RequestMethod.POST)
     @ResponseBody
-    public User testEasyUIJsonData(){
+    public EasyUIModel<User> testEasyUIJsonData(){
+        List<User> list = new ArrayList<User>();
         User user = userMapper.selectByPrimaryKey((long) 5);
-        return user;
+        User user2 = userMapper.selectByPrimaryKey((long) 4);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user);
+        list.add(user2);
+        EasyUIModel result = new EasyUIModel(5,list);
+        return result;
     }
 }
