@@ -1,4 +1,4 @@
-package com.lance.test;
+package com.lance.test.Mybatis;
 
 import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
