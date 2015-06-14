@@ -50,6 +50,10 @@
         <!--lucene-->
         <lucene.version>5.1.0</lucene.version>
 
+        <!--activiti-->
+        <activiti.versioin>5.17.0</activiti.versioin>
+        <activiti-spring.versioin>5.17.0</activiti-spring.versioin>
+
         <!--测试相关包-->
         <junit.version>4.12</junit.version>
 
@@ -217,6 +221,18 @@
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-queryparser</artifactId>
             <version>${lucene.version}</version>
+        </dependency>
+
+        <!--activiti-->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>${activiti.versioin}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>${activiti-spring.versioin}</version>
         </dependency>
 
         <!--test-->
