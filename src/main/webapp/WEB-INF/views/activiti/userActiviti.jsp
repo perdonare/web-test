@@ -28,23 +28,17 @@
             <th>删除</th>
             <th>签收</th>
             <th>审核</th>
-        </tr>sdfsd
-        <%
-            List list = (List) pageContext.getServletContext().getAttribute("userLeavePOs");
-            for(Object o : list){
-                System.out.println("aas");
-            }
-
-        %>
-        <c:forEach begin="1" var="userLeavePO" items="userLeavePOs" step="1">sd
+        </tr>
+        <c:forEach begin="1" step="1" items="${userLeavePOs}" var="userLeavePO">
             <tr>
                 <td>${userLeavePO.title}</td>
                 <td>${userLeavePO.content}</td>
                 <td>${userLeavePO.days}</td>
                 <td>${userLeavePO.createTime}</td>
-                <td>${userLeavePO.status}</td>sdfsdf
+                <td>${userLeavePO.status}</td>
                 <td><a href="edit?userId=${userLeave.id}">修改</a></td>
                 <td><a href="delete?userId=${userLeave.id}">删除</a></td>
+                <td><a href="start?userId=${userLeave.id}">申请</a></td>
                 <td><a href="claim?userId=${userLeave.id}">签收</a></td>
                 <td><a href="check?userId=${userLeave.id}">审核</a></td>
             </tr>

@@ -44,7 +44,7 @@ public class ActivitiController extends BaseController{
     /**
      * 查看当前流程
      */
-    @RequestMapping("view")
+    @RequestMapping(value = "view")
     public ModelAndView viewActiviti(HttpSession session){
         String username = (String) session.getAttribute("username");
         List<UserLeavePO> userLeafPOs = userLeaveService.getList(username);
@@ -92,6 +92,12 @@ public class ActivitiController extends BaseController{
             session.setAttribute("deployFlag",false);
         }
         return "redirect:deploy";
+    }
+
+    @RequestMapping("start")
+    public String startActiviti(String userLeaveId){
+
+        return "redirect:userActiviti";
     }
 
     /**

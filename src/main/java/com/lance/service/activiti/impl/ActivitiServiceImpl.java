@@ -1,5 +1,7 @@
 package com.lance.service.activiti.impl;
 
+import com.lance.persistence.mapper.UserLeaveMapper;
+import com.lance.persistence.model.UserLeavePO;
 import com.lance.service.activiti.IActivitiService;
 import com.lance.service.activiti.impl.vo.ActivitiDeployBO;
 import org.activiti.engine.HistoryService;
@@ -26,7 +28,7 @@ import java.util.zip.ZipInputStream;
  * Created by perdonare on 2015/6/16.
  */
 @Service
-public class ActivitiServiceImpl implements IActivitiService{
+public class ActivitiServiceImpl implements IActivitiService {
     @Autowired
     private RepositoryService repositoryService;
     @Autowired
@@ -35,6 +37,8 @@ public class ActivitiServiceImpl implements IActivitiService{
     private TaskService taskService;
     @Autowired
     private HistoryService historyService;
+    @Autowired
+    private UserLeaveMapper userLeaveMapper;
 
     @Override
     public List<Task> getUserActiviti(String user) {
@@ -57,8 +61,8 @@ public class ActivitiServiceImpl implements IActivitiService{
     }
 
     @Override
-    public boolean deploy(List<MultipartFile> list,String name) {
-        for (MultipartFile multipartFile : list){
+    public boolean deploy(List<MultipartFile> list, String name) {
+        for (MultipartFile multipartFile : list) {
             try {
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(multipartFile.getBytes());
                 ZipInputStream zipInputStream = new ZipInputStream(byteArrayInputStream);
@@ -72,19 +76,19 @@ public class ActivitiServiceImpl implements IActivitiService{
     }
 
     @Override
-    public void createActiviti(String username,String processDefinationKey,Map<String,Object> variables) {
-        runtimeService.startProcessInstanceByKey(processDefinationKey,variables);
+    public void createActiviti(String username, String processDefinationKey, Map<String, Object> variables) {
+        runtimeService.startProcessInstanceByKey(processDefinationKey, variables);
     }
 
     @Override
-    public void getActivitiPic(HttpServletResponse response, String deploymentId, String diagramResourceName){
+    public void getActivitiPic(HttpServletResponse response, String deploymentId, String diagramResourceName) {
 
-        try (InputStream inputStream = repositoryService.getResourceAsStream(deploymentId,diagramResourceName);
-                OutputStream outputStream = response.getOutputStream()){
+        try (InputStream inputStream = repositoryService.getResourceAsStream(deploymentId, diagramResourceName);
+             OutputStream outputStream = response.getOutputStream()) {
             byte[] bytes = new byte[1024];
-            int count=0;
-            while((count = inputStream.read(bytes))!=-1){
-                outputStream.write(bytes,0,count);
+            int count = 0;
+            while ((count = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, count);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,5 +96,9 @@ public class ActivitiServiceImpl implements IActivitiService{
 
     }
 
-
+    @Override
+    public void startActiviti(int userLeaveId) {
+        UserLeavePO userLeavePO = userLeaveMapper.selectUserLeaveById(userLeaveId);
+        //runtimeService.startProcessInstanceById("3" )
+    }
 }

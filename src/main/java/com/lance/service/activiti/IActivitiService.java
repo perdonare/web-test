@@ -18,6 +18,6 @@ public interface IActivitiService {
     void completeUserActiviti(String taskId);
     List<ProcessDefinition> getActivitiDeployBO();
     void deleteProcessDefinition(String deploymentId);
-
     void getActivitiPic(HttpServletResponse response, String deploymentId, String diagramResourceName);
+    void startActiviti(int userLeaveId);
 }
