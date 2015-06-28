@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:security="http://www.springframework.org/schema/security"
+             xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		   http://www.springframework.org/schema/beans/spring-beans.xsd
+		   http://www.springframework.org/schema/security
+		   http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:debug />
+    <security:http auto-config="false">
+        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/**" access="ROLE_USER" />
+        <security:form-login login-page="/login.jsp" />
+        <security:session-management invalid-session-url="/error.jsp"/>
+        <security:custom-filter ref="userLoginAuthenticationFilter" before="FORM_LOGIN_FILTER"/>
+    </security:http>
+
+    <bean id="userLoginAuthenticationFilter" class="com.lance.common.security.filter.UserLoginAuthenticationFilter" />
+
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg name="decisionVoters">
+            <list>
+                <ref bean="roleVoter"/>
+                <ref bean="authenticatedVoter"/>
+            </list>
+        </constructor-arg>
+        <property name="allowIfAllAbstainDecisions" value="false"/>
+    </bean>
+
+    <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <property name="rolePrefix" value=""/>
+    </bean>
+
+    <bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter">
+    </bean>
+
+</beans>

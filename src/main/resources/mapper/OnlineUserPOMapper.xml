@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lance.persistence.mapper.OnlineUserPOMapper" >
+  <resultMap id="BaseResultMap" type="com.lance.persistence.model.OnlineUserPO" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
+    <result column="LOGIN_ACCOUNT" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="LOGIN_USER_NAME" property="loginUserName" jdbcType="VARCHAR" />
+    <result column="LOGIN_IP" property="loginIp" jdbcType="VARCHAR" />
+    <result column="LOGIN_TIME" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="LOGIN_URL" property="loginUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.lance.persistence.model.OnlineUserPO" >
+    insert into T_SYS_ONLINE_USER (ID, SESSION_ID, LOGIN_ACCOUNT, 
+      LOGIN_USER_NAME, LOGIN_IP, LOGIN_TIME, 
+      LOGIN_URL)
+    values (#{id,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, #{loginAccount,jdbcType=VARCHAR}, 
+      #{loginUserName,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{loginUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lance.persistence.model.OnlineUserPO" >
+    insert into T_SYS_ONLINE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID,
+      </if>
+      <if test="loginAccount != null" >
+        LOGIN_ACCOUNT,
+      </if>
+      <if test="loginUserName != null" >
+        LOGIN_USER_NAME,
+      </if>
+      <if test="loginIp != null" >
+        LOGIN_IP,
+      </if>
+      <if test="loginTime != null" >
+        LOGIN_TIME,
+      </if>
+      <if test="loginUrl != null" >
+        LOGIN_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAccount != null" >
+        #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loginUserName != null" >
+        #{loginUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginUrl != null" >
+        #{loginUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
