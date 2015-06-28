@@ -1,11 +1,13 @@
 package com.lance.persistence.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     private Long id;
 
     private String name;
 
-    private String password;
+    private transient String password;
 
     public Long getId() {
         return id;
