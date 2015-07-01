@@ -29,6 +29,8 @@
 
     <!--持久化相关的配置-->
     <import resource="spring-persistence.xml"/>
+    <import resource="spring-batch.xml"/>
+    <import resource="spring-batch-job.xml"/>
     <import resource="spring-mvc-config.xml"/>
 
 
