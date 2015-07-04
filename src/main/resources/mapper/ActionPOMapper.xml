@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lance.persistence.mapper.ActionPOMapper" >
+  <resultMap id="BaseResultMap" type="com.lance.persistence.model.ActionPO" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ACTION_NO" property="actionNo" jdbcType="VARCHAR" />
+    <result column="ACTION_NAME" property="actionName" jdbcType="VARCHAR" />
+    <result column="ACTION_TYPE" property="actionType" jdbcType="CHAR" />
+    <result column="ACTION_CONTENT" property="actionContent" jdbcType="VARCHAR" />
+    <result column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
+    <result column="IS_SYSTEM" property="isSystem" jdbcType="CHAR" />
+    <result column="IS_CLOSE" property="isClose" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_UID" property="createUid" jdbcType="VARCHAR" />
+    <result column="UPDATE_UID" property="updateUid" jdbcType="VARCHAR" />
+    <result column="CHECK_UID" property="checkUid" jdbcType="VARCHAR" />
+    <result column="CHECK_FLAG" property="checkFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ACTION_NO, ACTION_NAME, ACTION_TYPE, ACTION_CONTENT, MENU_ID, IS_SYSTEM, IS_CLOSE, 
+    CREATE_TIME, CHECK_TIME, CREATE_UID, UPDATE_UID, CHECK_UID, CHECK_FLAG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SYS_ACTION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_SYS_ACTION
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lance.persistence.model.ActionPO" >
+    insert into T_SYS_ACTION (ID, ACTION_NO, ACTION_NAME, 
+      ACTION_TYPE, ACTION_CONTENT, MENU_ID, 
+      IS_SYSTEM, IS_CLOSE, CREATE_TIME, 
+      CHECK_TIME, CREATE_UID, UPDATE_UID, 
+      CHECK_UID, CHECK_FLAG)
+    values (#{id,jdbcType=VARCHAR}, #{actionNo,jdbcType=VARCHAR}, #{actionName,jdbcType=VARCHAR}, 
+      #{actionType,jdbcType=CHAR}, #{actionContent,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, 
+      #{isSystem,jdbcType=CHAR}, #{isClose,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{createUid,jdbcType=VARCHAR}, #{updateUid,jdbcType=VARCHAR}, 
+      #{checkUid,jdbcType=VARCHAR}, #{checkFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lance.persistence.model.ActionPO" >
+    insert into T_SYS_ACTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="actionNo != null" >
+        ACTION_NO,
+      </if>
+      <if test="actionName != null" >
+        ACTION_NAME,
+      </if>
+      <if test="actionType != null" >
+        ACTION_TYPE,
+      </if>
+      <if test="actionContent != null" >
+        ACTION_CONTENT,
+      </if>
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="isSystem != null" >
+        IS_SYSTEM,
+      </if>
+      <if test="isClose != null" >
+        IS_CLOSE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="checkTime != null" >
+        CHECK_TIME,
+      </if>
+      <if test="createUid != null" >
+        CREATE_UID,
+      </if>
+      <if test="updateUid != null" >
+        UPDATE_UID,
+      </if>
+      <if test="checkUid != null" >
+        CHECK_UID,
+      </if>
+      <if test="checkFlag != null" >
+        CHECK_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="actionNo != null" >
+        #{actionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionType != null" >
+        #{actionType,jdbcType=CHAR},
+      </if>
+      <if test="actionContent != null" >
+        #{actionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="isSystem != null" >
+        #{isSystem,jdbcType=CHAR},
+      </if>
+      <if test="isClose != null" >
+        #{isClose,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUid != null" >
+        #{createUid,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkUid != null" >
+        #{checkUid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkFlag != null" >
+        #{checkFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lance.persistence.model.ActionPO" >
+    update T_SYS_ACTION
+    <set >
+      <if test="actionNo != null" >
+        ACTION_NO = #{actionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        ACTION_NAME = #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionType != null" >
+        ACTION_TYPE = #{actionType,jdbcType=CHAR},
+      </if>
+      <if test="actionContent != null" >
+        ACTION_CONTENT = #{actionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        MENU_ID = #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="isSystem != null" >
+        IS_SYSTEM = #{isSystem,jdbcType=CHAR},
+      </if>
+      <if test="isClose != null" >
+        IS_CLOSE = #{isClose,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUid != null" >
+        CREATE_UID = #{createUid,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUid != null" >
+        UPDATE_UID = #{updateUid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkUid != null" >
+        CHECK_UID = #{checkUid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkFlag != null" >
+        CHECK_FLAG = #{checkFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lance.persistence.model.ActionPO" >
+    update T_SYS_ACTION
+    set ACTION_NO = #{actionNo,jdbcType=VARCHAR},
+      ACTION_NAME = #{actionName,jdbcType=VARCHAR},
+      ACTION_TYPE = #{actionType,jdbcType=CHAR},
+      ACTION_CONTENT = #{actionContent,jdbcType=VARCHAR},
+      MENU_ID = #{menuId,jdbcType=VARCHAR},
+      IS_SYSTEM = #{isSystem,jdbcType=CHAR},
+      IS_CLOSE = #{isClose,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      CREATE_UID = #{createUid,jdbcType=VARCHAR},
+      UPDATE_UID = #{updateUid,jdbcType=VARCHAR},
+      CHECK_UID = #{checkUid,jdbcType=VARCHAR},
+      CHECK_FLAG = #{checkFlag,jdbcType=CHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

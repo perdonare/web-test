@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lance.persistence.mapper.LogPOMapper" >
+  <resultMap id="BaseResultMap" type="com.lance.persistence.model.LogPO" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="LOG_TYPE" property="logType" jdbcType="CHAR" />
+    <result column="OPERATION_ACCOUNT" property="operationAccount" jdbcType="VARCHAR" />
+    <result column="APERATION_USERNAME" property="aperationUsername" jdbcType="VARCHAR" />
+    <result column="OPERATION_PATH" property="operationPath" jdbcType="VARCHAR" />
+    <result column="OPERATION_TIME" property="operationTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATION_IP" property="operationIp" jdbcType="VARCHAR" />
+    <result column="LOG_CONTENT" property="logContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, LOG_TYPE, OPERATION_ACCOUNT, APERATION_USERNAME, OPERATION_PATH, OPERATION_TIME, 
+    OPERATION_IP, LOG_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SYS_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_SYS_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lance.persistence.model.LogPO" >
+    insert into T_SYS_LOG (ID, LOG_TYPE, OPERATION_ACCOUNT, 
+      APERATION_USERNAME, OPERATION_PATH, OPERATION_TIME, 
+      OPERATION_IP, LOG_CONTENT)
+    values (#{id,jdbcType=VARCHAR}, #{logType,jdbcType=CHAR}, #{operationAccount,jdbcType=VARCHAR}, 
+      #{aperationUsername,jdbcType=VARCHAR}, #{operationPath,jdbcType=VARCHAR}, #{operationTime,jdbcType=TIMESTAMP}, 
+      #{operationIp,jdbcType=VARCHAR}, #{logContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lance.persistence.model.LogPO" >
+    insert into T_SYS_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="logType != null" >
+        LOG_TYPE,
+      </if>
+      <if test="operationAccount != null" >
+        OPERATION_ACCOUNT,
+      </if>
+      <if test="aperationUsername != null" >
+        APERATION_USERNAME,
+      </if>
+      <if test="operationPath != null" >
+        OPERATION_PATH,
+      </if>
+      <if test="operationTime != null" >
+        OPERATION_TIME,
+      </if>
+      <if test="operationIp != null" >
+        OPERATION_IP,
+      </if>
+      <if test="logContent != null" >
+        LOG_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=CHAR},
+      </if>
+      <if test="operationAccount != null" >
+        #{operationAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="aperationUsername != null" >
+        #{aperationUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="operationPath != null" >
+        #{operationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationIp != null" >
+        #{operationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lance.persistence.model.LogPO" >
+    update T_SYS_LOG
+    <set >
+      <if test="logType != null" >
+        LOG_TYPE = #{logType,jdbcType=CHAR},
+      </if>
+      <if test="operationAccount != null" >
+        OPERATION_ACCOUNT = #{operationAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="aperationUsername != null" >
+        APERATION_USERNAME = #{aperationUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="operationPath != null" >
+        OPERATION_PATH = #{operationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationIp != null" >
+        OPERATION_IP = #{operationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logContent != null" >
+        LOG_CONTENT = #{logContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lance.persistence.model.LogPO" >
+    update T_SYS_LOG
+    set LOG_TYPE = #{logType,jdbcType=CHAR},
+      OPERATION_ACCOUNT = #{operationAccount,jdbcType=VARCHAR},
+      APERATION_USERNAME = #{aperationUsername,jdbcType=VARCHAR},
+      OPERATION_PATH = #{operationPath,jdbcType=VARCHAR},
+      OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+      OPERATION_IP = #{operationIp,jdbcType=VARCHAR},
+      LOG_CONTENT = #{logContent,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

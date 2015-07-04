@@ -1,5 +1,6 @@
 package com.lance.controller;
 
+import com.google.common.collect.Lists;
 import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by perdonare on 2015/5/3.
@@ -64,5 +68,18 @@ public class WebTestController {
         ModelAndView modelAndView = new ModelAndView("test/RequestParam");
         modelAndView.addObject("id",id);
         return modelAndView;
+    }
+
+    @RequestMapping("/json")
+    @ResponseBody
+    public List<User> testJson(){
+        List users = Lists.newArrayList();
+        User user = new User();
+        user.setId(3);
+        user.setName("lance");
+        user.setPassword("lance");
+        users.add(user);
+        users.add(user);
+        return users;
     }
 }
