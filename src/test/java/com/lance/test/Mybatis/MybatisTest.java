@@ -1,4 +1,4 @@
-package com.lance.test;
+package com.lance.test.mybatis;
 
 import com.lance.persistence.model.User;
 import com.lance.persistence.service.IUserService;
