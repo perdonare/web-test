@@ -2,19 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lance.persistence.mapper.RoleAccountPOMapper" >
   <resultMap id="BaseResultMap" type="com.lance.persistence.model.RoleAccountPO" >
-    <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
-    <result column="ACCOUNT_ID" property="accountId" jdbcType="VARCHAR" />
+    <id     column="ID"         property="id"           jdbcType="VARCHAR" />
+    <result column="ROLE_ID"    property="roleId"       jdbcType="VARCHAR" />
+    <result column="ACCOUNT_ID" property="accountId"    jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
-    ID, ROLE_ID, ACCOUNT_ID
+    ID,
+    ROLE_ID,  ACCOUNT_ID
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from T_SYS_ROLE_ACCOUNT
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+    <select id="getRoleAccountPOs" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM T_SYS_ROLE_ACCOUNT
+        WHERE ACCOUNT_ID = #{accountId,jdbcType=VARCHAR}
+    </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from T_SYS_ROLE_ACCOUNT
     where ID = #{id,jdbcType=VARCHAR}
