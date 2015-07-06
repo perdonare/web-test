@@ -47,6 +47,9 @@
         <jstl.version>1.2</jstl.version>
         <jackson.version>2.5.3</jackson.version>
 
+        <!--validator-->
+        <hibernate-validator.version>5.2.0.CR1</hibernate-validator.version>
+
         <!--lucene-->
         <lucene.version>5.1.0</lucene.version>
 
@@ -157,10 +160,15 @@
 
         <!--persistence-->
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
             <version>${oracle-connector.version}</version>
         </dependency>
+       <!-- <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>${oracle-connector.version}</version>
+        </dependency>-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -200,6 +208,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+
+        <!--validator-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
         </dependency>
 
         <!--lucene-->

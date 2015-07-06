@@ -22,5 +22,9 @@
     <input name="_id" type="text"><br/>
     <input type="submit">
 </form>
+<form action="/test/validation">
+    <input name="name" type="text"><br/>
+    <input type="submit">
+</form>
 </body>
 </html>

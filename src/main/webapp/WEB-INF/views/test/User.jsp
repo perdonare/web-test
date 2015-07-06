@@ -12,7 +12,9 @@
     <title></title>
 </head>
 <body>
+ID:${user.id}<br/>
 用户名${user.name}<br/>
 密码${user.password}
+${errors[0]}
 </body>
 </html>

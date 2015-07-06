@@ -1,6 +1,9 @@
 package com.lance.persistence.model;
 
+import javax.validation.constraints.NotNull;
+
 public class User {
+    @NotNull(message = "id不能为空")
     private Short id;
 
     private String name;

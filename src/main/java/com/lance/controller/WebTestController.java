@@ -4,6 +4,8 @@ import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +33,7 @@ public class WebTestController {
         u.setName("aaa");
         u.setPassword("bbb");
         userMapper.insert(u);
-        User user = userMapper.selectByPrimaryKey((long) 5);
+        User user = userMapper.selectByPrimaryKey(5L);
         System.out.println(user);
         return "index";
     }
@@ -63,6 +65,14 @@ public class WebTestController {
     public ModelAndView testRequestParam(@RequestParam(value="_id") String id){
         ModelAndView modelAndView = new ModelAndView("test/RequestParam");
         modelAndView.addObject("id",id);
+        return modelAndView;
+    }
+
+    @RequestMapping("/validation")
+    public ModelAndView testValidation(@Validated User user,BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView("test/User");
+        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("errors",bindingResult.getAllErrors());
         return modelAndView;
     }
 }
