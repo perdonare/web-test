@@ -14,4 +14,9 @@ public class LoginController {
     public String login(){
         return "login/login";
     }
+
+    @RequestMapping("failure")
+    public String loginSuccess(){
+        return "a";
+    }
 }

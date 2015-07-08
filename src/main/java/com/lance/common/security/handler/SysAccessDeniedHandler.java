@@ -16,6 +16,7 @@ public class SysAccessDeniedHandler implements AccessDeniedHandler {
     private String errorPage;
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
+        System.out.println("qqqqqqqqqqqqqq");
         if (!response.isCommitted()){
             if (errorPage!=null){
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher(errorPage);

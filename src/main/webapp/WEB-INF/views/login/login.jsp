@@ -11,6 +11,10 @@
     <title></title>
 </head>
 <body>
-
+<form action="/login/loginProcess" method="get">
+    <input name="username" type="text">
+    <input name="password" type="password">
+    <input name="submit" type="submit">
+</form>
 </body>
 </html>

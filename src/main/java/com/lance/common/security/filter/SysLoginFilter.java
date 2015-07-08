@@ -19,6 +19,7 @@ public class SysLoginFilter extends UsernamePasswordAuthenticationFilter {
     //private IAccountService accountService;
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        System.out.println("================");
         String username  = getUsername(request);
         String password  = getPassword(request);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,password);
