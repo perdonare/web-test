@@ -24,6 +24,7 @@ public class SysLoginFilter extends UsernamePasswordAuthenticationFilter {
         String password  = getPassword(request);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,password);
         setDetails(request,token);
+        System.out.println("======================");
         return getAuthenticationManager().authenticate(token);
     }
 

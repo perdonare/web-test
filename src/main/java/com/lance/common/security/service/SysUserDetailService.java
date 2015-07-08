@@ -20,6 +20,7 @@ public class SysUserDetailService implements UserDetailsService {
     private IAccountService accountService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("==========================");
         AccountPO accountPO = accountService.getAccountPO(username);
         if (accountPO==null)
             throw new UsernameNotFoundException("用户未找到");

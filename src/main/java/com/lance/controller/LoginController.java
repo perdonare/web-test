@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/login")
 public class LoginController {
     @RequestMapping("")
-    public String login(){
+    public String loginDefault(){
         return "login/login";
     }
 
-    @RequestMapping("failure")
-    public String loginSuccess(){
-        return "a";
-    }
+
 }

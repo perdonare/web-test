@@ -17,6 +17,7 @@ package com.lance.common.security.filter;
 import com.google.common.collect.Lists;
 
 import com.lance.persistence.mapper.MenuPOMapper;
+import com.lance.persistence.model.RolePO;
 import com.lance.persistence.service.IResourceService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -30,17 +31,17 @@ import java.util.List;
 public class SysFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
     private IResourceService resourceService;
 
-    private RequestMatcher pathMatcher = null;
-
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         FilterInvocation filterInvocation = (FilterInvocation) object;
         String url = filterInvocation.getRequestUrl();
-        Collection<ConfigAttribute> configAttributes = Lists.newArrayList();
-        ConfigAttribute configAttribute = new SecurityConfig("lance");
-        configAttributes.add(configAttribute);
+        List<RolePO> rolePOs = resourceService.getRolsByResource(url);
+        List<ConfigAttribute> configAttributes = Lists.newArrayList();
+        for (RolePO rolePO : rolePOs) {
+            ConfigAttribute configAttribute = new SecurityConfig(rolePO.getRoleName());
+            configAttributes.add(configAttribute);
+        }
         return configAttributes;
-
     }
 
     @Override

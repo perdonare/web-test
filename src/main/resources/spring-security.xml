@@ -6,21 +6,21 @@
 		   http://www.springframework.org/schema/beans/spring-beans.xsd
 		   http://www.springframework.org/schema/security
 		   http://www.springframework.org/schema/security/spring-security.xsd">
-    <security:debug/>
-    <security:http pattern="/index" security="none"/>
-    <security:http pattern="/login" security="none"/>
+
     <!--accessDecisionManager用来判断一个安全实体是否有对适当的权限-->
-    <security:http  access-decision-manager-ref="accessDecisionManager" entry-point-ref="sysLoginUrlAuthenticationEntryPoint">
+    <security:debug/>
+    <security:http pattern="/login/**" security="none"></security:http>
+    <security:http auto-config="false"  access-decision-manager-ref="accessDecisionManager" entry-point-ref="sysLoginUrlAuthenticationEntryPoint">
         <security:logout                invalidate-session="true" logout-success-url="/security/" delete-cookies="true" logout-url="/security/logout"/>
         <security:anonymous             enabled="false"/>
         <security:session-management    session-authentication-strategy-ref="compositeSessionAuthenticationStrategy"/>
         <security:access-denied-handler ref="accessDeniedHandler" />
-        <!--<security:request-cache         ref="requestCacheHandler"/>-->
-        <!--<security:custom-filter         ref="sysConcurrentSessionFilter"    position="CONCURRENT_SESSION_FILTER"/>-->
+        <security:request-cache         ref="requestCacheHandler"/>
+        <security:custom-filter         ref="sysConcurrentSessionFilter"    position="CONCURRENT_SESSION_FILTER"/>
         <!--用于认证-->
         <security:custom-filter         ref="sysLoginFilter"                   position="FORM_LOGIN_FILTER"/>
         <!--用于授权-->
-        <security:custom-filter         ref="sysFilterSecurityInterceptor"         before="FILTER_SECURITY_INTERCEPTOR"/>
+        <security:custom-filter         ref="filterSecurityInterceptor"         before="FILTER_SECURITY_INTERCEPTOR"/>
     </security:http>
 
 
@@ -41,12 +41,12 @@
 
 
 <!--*******************************  authenticationEntryPoint  begin ************************************************-->
-<!--    <bean id="sysLoginUrlAuthenticationEntryPoint"      class="com.lance.common.security.filter.SysLoginUrlAuthenticationEntryPoint">
+    <bean id="sysLoginUrlAuthenticationEntryPoint"      class="com.lance.common.security.filter.SysLoginUrlAuthenticationEntryPoint">
         <constructor-arg    name="loginFormUrl"         value="/login"/>
-    </bean>-->
-    <bean id="sysLoginUrlAuthenticationEntryPoint" class="com.lance.common.security.filter.SysLoginUrlAuthenticationEntryPoint">
-        <constructor-arg name="loginFormUrl" value="/login"/>
     </bean>
+    <!--<bean id="sysLoginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <constructor-arg name="loginFormUrl" value="/login"/>
+    </bean>-->
 <!--*******************************  authenticationEntryPoint  end **************************************************-->
 
 
@@ -84,20 +84,10 @@
 
 <!--*******************************  filter  begin ******************************************************************-->
     <bean id="sysConcurrentSessionFilter"   class="com.lance.common.security.filter.SysConcurrentSessionFilter"/>
-
     <bean id="sysLoginFilter"               class="com.lance.common.security.filter.SysLoginFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="filterProcessesUrl" value="/login/loginProcess"/>
-        <property name="authenticationFailureHandler" ref="loginFailureHander"/>
     </bean>
-    <bean id="loginFailureHander" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <constructor-arg name="defaultFailureUrl" value="/login/failure" />
-    </bean>
-
-
-
-
-    <bean id="sysFilterSecurityInterceptor"    class="com.lance.common.security.filter.SysFilterSecurityInterceptor">
+    <bean id="filterSecurityInterceptor"    class="com.lance.common.security.filter.SysFilterSecurityInterceptor">
         <property name="securityMetadataSource" ref="sysFilterInvocationSecurityMetadataSource"/>
         <property name="rejectPublicInvocations" value="true"/>
         <property name="authenticationManager" ref="authenticationManager"/>
