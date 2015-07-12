@@ -8,62 +8,56 @@ http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
     <bean:import resource="spring-batch.xml"/>
 
-    <bean:bean id="hello" class="com.lance.test.batch.FirstBatchProcess">
-        <bean:property name="message" value="Hello "></bean:property>
-    </bean:bean>
+    <!--job-repository 默认 jobRepository restartable 默认true  abstract默认false-->
+    <job id="fileBatchJob" job-repository="jobRepository" restartable="true" abstract="false" >
+        <description>this is job for file batch persistence</description>
 
-    <bean:bean id="world" class="com.lance.test.batch.FirstBatchProcess">
-        <bean:property name="message" value=" World!"></bean:property>
-    </bean:bean>
-
-    <job id="helloWorldJob">
-        <step id="step_hello" next="step_world">
-            <tasklet ref="hello" transaction-manager="batchTransactionManager"></tasklet>
+        <!--初始化ftp信息等-->
+        <step id="init" next="loadFiles">
+            <tasklet ref="dataInitJob"/>
         </step>
-        <step id="step_world">
-            <tasklet ref="world" transaction-manager="batchTransactionManager"></tasklet>
-        </step>
-    </job>
 
-    <job id="csvJob">
-        <step id="csvStep">
-            <tasklet transaction-manager="batchTransactionManager">
-                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvItemProcessor" commit-interval="1">
-                </chunk>
+        <!--加载文件-->
+        <step id="loadFiles" >
+            <tasklet >
+                <chunk reader="fileReader" writer="fileWriter" processor="fileProcessor" commit-interval="1"/>
             </tasklet>
         </step>
+
+        <!--&lt;!&ndash;文件处理&ndash;&gt;
+        <step id="fileProcess" next="finalize">
+            <tasklet ref="fileProcessJob"/>
+        </step>
+
+        &lt;!&ndash;文件回盘&ndash;&gt;
+        <step id="finalize">
+            <tasklet ref="dataFinalizeJob"/>
+        </step>-->
     </job>
-    <bean:bean id="csvItemReader"
-               class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
-        <bean:property name="resource" value="file:test/inputFile.txt"/>
-        <bean:property name="lineMapper">
-            <bean:bean
-                    class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-                <bean:property name="lineTokenizer" ref="lineTokenizer"/>
-                <bean:property name="fieldSetMapper">
-                    <bean:bean
-                            class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-                        <bean:property name="prototypeBeanName" value="student"></bean:property>
-                    </bean:bean>
-                </bean:property>
-            </bean:bean>
-        </bean:property>
+
+
+
+    <bean:bean id="dataInitJob" class="com.lance.batch.DataInitJob"/>
+    <bean:bean id="dataLoadJob" class="com.lance.batch.FileLoadJob"/>
+    <bean:bean id="fileProcessJob" class="com.lance.batch.FileProcessJob"/>
+    <bean:bean id="dataFinalizeJob" class="com.lance.batch.DataFinalizeJob"/>
+    <bean:bean id="fileReader" class="com.lance.batch.FileItemReader">
+        <bean:property name="lineMapper" ref="lineMapper"/>
+        <bean:property name="resource" ref="resource"/>
+        <bean:property name="name" value="lance"/>
+        <bean:property name="executionContextName" value="lance"/>
     </bean:bean>
+    <bean:bean id="fileWriter" class="com.lance.batch.FileItemWriter"/>
+    <bean:bean id="fileProcessor" class="com.lance.batch.FileItemProcessor"/>
 
-    <bean:bean id="User" class="com.lance.persistence.model.User" />
-
-    <!-- lineTokenizer -->
-    <bean:bean id="lineTokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-        <bean:property name="delimiter" value=","/>
-        <bean:property name="names">
-            <bean:list>
-                <bean:value>ID</bean:value>
-                <bean:value>name</bean:value>
-                <bean:value>age</bean:value>
-                <bean:value>score</bean:value>
-            </bean:list>
-        </bean:property>
+    <bean:bean id="lineMapper" class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+        <bean:property name="fieldSetMapper" ref="fieldSetMapper"/>
+        <bean:property name="lineTokenizer" ref="tokenizer"/>
     </bean:bean>
-
+    <bean:bean id="resource" class="org.springframework.core.io.FileSystemResource">
+        <bean:constructor-arg name="path" value="d:/batch/test.txt"/>
+    </bean:bean>
+    <bean:bean id="tokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer"/>
+    <bean:bean id="fieldSetMapper" class="org.springframework.batch.item.file.mapping.ArrayFieldSetMapper"/>
 
 </bean:beans>
