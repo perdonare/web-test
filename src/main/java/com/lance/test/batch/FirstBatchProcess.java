@@ -27,7 +27,9 @@ import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.transform.DefaultFieldSet;
 import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FirstBatchProcess implements Tasklet{
     private String message;
 
