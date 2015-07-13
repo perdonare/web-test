@@ -1,69 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bean:beans xmlns="http://www.springframework.org/schema/batch"
-            xmlns:bean="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:batch="http://www.springframework.org/schema/batch"
+            xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/batch 
 http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
-    <bean:import resource="spring-batch.xml"/>
+    <import resource="spring-batch.xml"/>
 
-    <bean:bean id="hello" class="com.lance.test.batch.FirstBatchProcess">
-        <bean:property name="message" value="Hello "></bean:property>
-    </bean:bean>
+    <bean id="hello" class="com.lance.test.batch.FirstBatchProcess">
+        <property name="message" value="Hello "></property>
+    </bean>
 
-    <bean:bean id="world" class="com.lance.test.batch.FirstBatchProcess">
-        <bean:property name="message" value=" World!"></bean:property>
-    </bean:bean>
+    <bean id="world" class="com.lance.test.batch.FirstBatchProcess">
+        <property name="message" value=" World!"></property>
+    </bean>
 
-    <job id="helloWorldJob">
-        <step id="step_hello" next="step_world">
+    <batch:job id="helloWorldJob" >
+        <batch:step id="step_hello" next="step_world" >
             <tasklet ref="hello" transaction-manager="batchTransactionManager"></tasklet>
-        </step>
-        <step id="step_world">
+        </batch:step>
+        <batch:step id="step_world">
             <tasklet ref="world" transaction-manager="batchTransactionManager"></tasklet>
-        </step>
-    </job>
+        </batch:step>
+    </batch:job>
 
-    <job id="csvJob">
-        <step id="csvStep">
-            <tasklet transaction-manager="batchTransactionManager">
-                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvItemProcessor" commit-interval="1">
-                </chunk>
-            </tasklet>
-        </step>
-    </job>
-    <bean:bean id="csvItemReader"
+    <batch:job id="csvJob">
+        <batch:step id="csvStep">
+            <batch:tasklet transaction-manager="batchTransactionManager">
+                <batch:chunk reader="csvItemReader" writer="csvItemWriter" processor="csvItemProcessor" commit-interval="1">
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+    <bean id="csvItemReader"
                class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
-        <bean:property name="resource" value="file:test/inputFile.txt"/>
-        <bean:property name="lineMapper">
-            <bean:bean
-                    class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-                <bean:property name="lineTokenizer" ref="lineTokenizer"/>
-                <bean:property name="fieldSetMapper">
-                    <bean:bean
-                            class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-                        <bean:property name="prototypeBeanName" value="student"></bean:property>
-                    </bean:bean>
-                </bean:property>
-            </bean:bean>
-        </bean:property>
-    </bean:bean>
+        <property name="resource" value="file:test/inputFile.txt"/>
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <property name="lineTokenizer" ref="lineTokenizer"/>
+                <property name="fieldSetMapper">
+                    <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+                        <property name="prototypeBeanName" value="student"></property>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
 
-    <bean:bean id="User" class="com.lance.persistence.model.User" />
+    <bean id="User" class="com.lance.persistence.model.User" />
 
     <!-- lineTokenizer -->
-    <bean:bean id="lineTokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
-        <bean:property name="delimiter" value=","/>
-        <bean:property name="names">
-            <bean:list>
-                <bean:value>ID</bean:value>
-                <bean:value>name</bean:value>
-                <bean:value>age</bean:value>
-                <bean:value>score</bean:value>
-            </bean:list>
-        </bean:property>
-    </bean:bean>
+    <bean id="lineTokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+        <property name="delimiter" value=","/>
+        <property name="names">
+            <list>
+                <value>ID</value>
+                <value>name</value>
+                <value>age</value>
+                <value>score</value>
+            </list>
+        </property>
+    </bean>
 
 
-</bean:beans>
+</beans>

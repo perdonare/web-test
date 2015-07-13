@@ -16,9 +16,16 @@
 package com.lance.test.batch;
 
 
+import org.springframework.batch.core.JobParametersIncrementer;
+import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.configuration.JobRegistry;
+import org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.file.LineMapper;
+import org.springframework.batch.item.file.transform.DefaultFieldSet;
+import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.batch.repeat.RepeatStatus;
 
 public class FirstBatchProcess implements Tasklet{
