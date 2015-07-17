@@ -3,6 +3,7 @@ package com.lance.batch;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.jsr.step.BatchletStep;
 import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.AbstractStep;
 import org.springframework.batch.core.step.item.Chunk;
 import org.springframework.batch.core.step.item.ChunkOrientedTasklet;
 import org.springframework.batch.core.step.item.ChunkProcessor;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 public class FileLoadJob implements Tasklet{
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-
         return null;
     }
 }

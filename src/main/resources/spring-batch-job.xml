@@ -55,9 +55,11 @@ http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
         <bean:property name="lineTokenizer" ref="tokenizer"/>
     </bean:bean>
     <bean:bean id="resource" class="org.springframework.core.io.FileSystemResource">
-        <bean:constructor-arg name="path" value="d:/batch/test.txt"/>
+        <bean:constructor-arg name="path" value="f:/batch/test.txt"/>
     </bean:bean>
-    <bean:bean id="tokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer"/>
+    <bean:bean id="tokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+        <bean:property name="delimiter" value="."/>
+    </bean:bean>
     <bean:bean id="fieldSetMapper" class="org.springframework.batch.item.file.mapping.ArrayFieldSetMapper"/>
 
 </bean:beans>

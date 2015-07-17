@@ -6,6 +6,7 @@ import org.springframework.batch.item.file.ResourceAwareItemReaderItemStream;
 import org.springframework.batch.item.support.AbstractItemCountingItemStreamItemReader;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.util.Assert;
 
 import java.io.BufferedReader;
@@ -16,8 +17,7 @@ import java.io.FileReader;
 /**
  * Created by perdonare on 2015/7/12.
  */
-public class FileItemReader<T> extends AbstractItemCountingItemStreamItemReader<T> implements
-        ResourceAwareItemReaderItemStream<T>, InitializingBean {
+public class FileItemReader<T> extends AbstractItemCountingItemStreamItemReader<T> implements ResourceAwareItemReaderItemStream<T>, InitializingBean {
     private Resource resource;
     private BufferedReader bufferedReader;
     private LineMapper lineMapper;
@@ -41,6 +41,8 @@ public class FileItemReader<T> extends AbstractItemCountingItemStreamItemReader<
     @Override
     protected T doRead() throws Exception {
         String line = bufferedReader.readLine();
+        //SimpleAsyncTaskExecutor
+        //FlatFileItemReader
         if (line==null){
             return null;
         }
