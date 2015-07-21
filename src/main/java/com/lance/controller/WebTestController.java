@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +82,8 @@ public class WebTestController {
         user.setPassword("lance");
         users.add(user);
         users.add(user);
+        UsernamePasswordAuthenticationFilter a;
+        DaoAuthenticationProvider
         return users;
     }
 }
