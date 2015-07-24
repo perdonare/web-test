@@ -36,6 +36,9 @@ public class SysFilterInvocationSecurityMetadataSource implements FilterInvocati
         FilterInvocation filterInvocation = (FilterInvocation) object;
         String url = filterInvocation.getRequestUrl();
         List<RolePO> rolePOs = resourceService.getRolsByResource(url);
+        if (rolePOs == null || rolePOs.size()==0){
+            return null;
+        }
         List<ConfigAttribute> configAttributes = Lists.newArrayList();
         for (RolePO rolePO : rolePOs) {
             ConfigAttribute configAttribute = new SecurityConfig(rolePO.getRoleName());
@@ -53,5 +56,9 @@ public class SysFilterInvocationSecurityMetadataSource implements FilterInvocati
     @Override
     public boolean supports(Class<?> clazz) {
         return true;
+    }
+
+    public void setResourceService(IResourceService resourceService) {
+        this.resourceService = resourceService;
     }
 }

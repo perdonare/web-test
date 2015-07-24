@@ -4,6 +4,22 @@ import com.google.common.collect.Lists;
 import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.header.HeaderWriterFilter;
+import org.springframework.security.web.jaasapi.JaasApiIntegrationFilter;
+import org.springframework.security.web.session.ConcurrentSessionFilter;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +49,10 @@ public class WebTestController {
     public String test(){
         User u = new User();
         u.setName("aaa");
+
         u.setPassword("bbb");
         userMapper.insert(u);
-        User user = userMapper.selectByPrimaryKey((long) 5);
+        User user = userMapper.selectByPrimaryKey(5L);
         System.out.println(user);
         return "index";
     }
@@ -80,6 +97,12 @@ public class WebTestController {
         user.setPassword("lance");
         users.add(user);
         users.add(user);
+        //FilterSecurityInterceptor
+       
         return users;
+    }
+    @RequestMapping("/authentication")
+    public String authenticate(){
+        return "/test/authentication";
     }
 }

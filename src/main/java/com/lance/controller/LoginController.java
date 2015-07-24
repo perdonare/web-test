@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    @RequestMapping("")
+    @RequestMapping("/loginForm")
     public String loginDefault(){
         return "login/login";
     }
 
+    @RequestMapping("")
+    public String validate(){
+        return "redirect:/index.jsp";
+    }
 
 }
