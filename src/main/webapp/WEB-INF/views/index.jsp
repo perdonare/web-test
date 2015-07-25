@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-    index
-<a href="/login/">登录</a>
+<%--<% response.sendRedirect("login"); %>--%>
+index <a href="/login/loginForm">登录</a><a href="/test/authentication">授权</a>
 </body>
 </html>

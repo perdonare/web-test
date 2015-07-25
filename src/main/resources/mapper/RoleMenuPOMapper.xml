@@ -10,6 +10,15 @@
   <sql id="Base_Column_List" >
     ID, ROLE_ID, MENU_ID, ACTIONS
   </sql>
+
+    <select id="getRoleMenuByResourceId" parameterType="string" resultType="com.lance.persistence.model.RoleMenuPO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM T_SYS_ROLE_MENU
+        WHERE MENU_ID = #{resourceId,jdbcType=VARCHAR}
+    </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

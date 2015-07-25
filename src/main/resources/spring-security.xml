@@ -9,20 +9,23 @@
 
     <!--accessDecisionManager用来判断一个安全实体是否有对适当的权限-->
     <security:debug/>
-    <security:http pattern="/login**" security="none"></security:http>
-    <security:http pattern="/index.jsp*" security="none"></security:http>
+    <security:http pattern="/login/loginForm" security="none"></security:http>
+    <security:http pattern="/" security="none"></security:http>
+    <security:http pattern="/index.jsp" security="none"></security:http>
     <security:http auto-config="false"  access-decision-manager-ref="accessDecisionManager" entry-point-ref="sysLoginUrlAuthenticationEntryPoint">
-        <security:csrf disabled="true"/>
         <security:logout                invalidate-session="true" logout-success-url="/security/" delete-cookies="true" logout-url="/security/logout"/>
         <security:anonymous             enabled="false"/>
         <security:session-management    session-authentication-strategy-ref="compositeSessionAuthenticationStrategy"/>
         <security:access-denied-handler ref="accessDeniedHandler" />
         <security:request-cache         ref="requestCacheHandler"/>
+        <security:http-basic/>
+        <security:intercept-url pattern="/test/http/**" requires-channel="http"/>
         <security:custom-filter         ref="sysConcurrentSessionFilter"    position="CONCURRENT_SESSION_FILTER"/>
         <!--用于认证-->
         <security:custom-filter         ref="sysLoginFilter"                   position="FORM_LOGIN_FILTER"/>
         <!--用于授权-->
         <security:custom-filter         ref="filterSecurityInterceptor"         before="FILTER_SECURITY_INTERCEPTOR"/>
+        <security:csrf disabled="true" />
     </security:http>
 
 
@@ -68,38 +71,40 @@
             <list>
                 <!--<bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">-->
                 <bean class="com.lance.common.security.handler.SysConcurrentSessionStrategy">
-                    <constructor-arg    ref="sessionRegister"/>
+                    <constructor-arg    ref="sessionRegistry"/>
                     <property           name="maximumSessions"              value="1" />
                     <property           name="exceptionIfMaximumExceeded"   value="false" />
                 </bean>
                 <bean class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy">
                 </bean>
                 <bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
-                    <constructor-arg ref="sessionRegister"/>
+                    <constructor-arg ref="sessionRegistry"/>
                 </bean>
             </list>
         </constructor-arg>
     </bean>
-    <!--<bean id="sessionRegistry"              class="com.lance.common.security.handler.SysSessionRegistryHandler"/>-->
+    <bean id="sessionRegistry"              class="com.lance.common.security.handler.SysSessionRegistryHandler"/>
 <!--*******************************  requestCache  end **************************************************************-->
 
 
 <!--*******************************  filter  begin ******************************************************************-->
-    <bean id="sysConcurrentSessionFilter"   class="com.lance.common.security.filter.SysConcurrentSessionFilter">
-        <property name="expiredUrl" value="/front/expired"/>
-        <property name="sessionRegistry" ref="sessionRegister"/>
-    </bean>
+    <bean id="sysConcurrentSessionFilter"   class="com.lance.common.security.filter.SysConcurrentSessionFilter"/>
     <bean id="sysLoginFilter"               class="com.lance.common.security.filter.SysLoginFilter">
-        <constructor-arg name="authenticationUrl" value="/checkLogin"/>
         <property name="authenticationManager" ref="authenticationManager"/>
     </bean>
-    <bean id="filterSecurityInterceptor"    class="com.lance.common.security.filter.SysFilterSecurityInterceptor">
-       <!-- <property name="securityMetadataSource" ref="sysFilterInvocationSecurityMetadataSource"/>
+    <!--<bean id="filterSecurityInterceptor"    class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="securityMetadataSource" ref="sysFilterInvocationSecurityMetadataSource"/>
         <property name="rejectPublicInvocations" value="true"/>
         <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="accessDecisionManager"/>-->
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+    </bean>-->
+    <bean id="filterSecurityInterceptor"    class="com.lance.common.security.filter.SysFilterSecurityInterceptor">
+        <property name="securityMetadataSource" ref="sysFilterInvocationSecurityMetadataSource"/>
+        <property name="rejectPublicInvocations" value="true"/>
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
     </bean>
-<!--*******************************  filter  end ********************************************************************-->
+    <!--*******************************  filter  end ********************************************************************-->
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider ref="authenticationProvider">
         </security:authentication-provider>
@@ -112,6 +117,8 @@
         <property name="accountService" ref="accountService"/>
     </bean>
     <bean id="accountService" class="com.lance.persistence.service.impl.AccountServiceImpl"/>
-    <bean id="sysFilterInvocationSecurityMetadataSource" class="com.lance.common.security.filter.SysFilterInvocationSecurityMetadataSource"/>
-    <bean id="sessionRegister" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+    <bean id="sysFilterInvocationSecurityMetadataSource" class="com.lance.common.security.filter.SysFilterInvocationSecurityMetadataSource">
+        <property name="resourceService" ref="resourceService"></property>
+    </bean>
+    <bean id="resourceService" class="com.lance.persistence.service.impl.ResourceServiceImpl"/>
 </beans>

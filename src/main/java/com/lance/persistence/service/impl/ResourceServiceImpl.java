@@ -9,6 +9,7 @@ import com.lance.persistence.model.MenuPO;
 import com.lance.persistence.model.RoleMenuPO;
 import com.lance.persistence.model.RolePO;
 import com.lance.persistence.service.IResourceService;
+import com.sun.org.apache.bcel.internal.generic.I2F;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,9 @@ public class ResourceServiceImpl implements IResourceService {
     @Override
     public List<RolePO> getRolsByResource(String resource) {
         MenuPO menuPO = menuPOMapper.getByResourceName(resource);
+        if (menuPO == null) {
+            return null;
+        }
         List<RoleMenuPO> roleMenuPOs = roleMenuPOMapper.getRoleMenuByResourceId(menuPO.getId());
         List<RolePO> rolePOs = Lists.newArrayList();
         for (RoleMenuPO roleMenuPO : roleMenuPOs) {
