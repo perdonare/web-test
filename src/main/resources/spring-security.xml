@@ -9,8 +9,10 @@
 
     <!--accessDecisionManager用来判断一个安全实体是否有对适当的权限-->
     <security:debug/>
-    <security:http pattern="/login/**" security="none"></security:http>
+    <security:http pattern="/login**" security="none"></security:http>
+    <security:http pattern="/index.jsp*" security="none"></security:http>
     <security:http auto-config="false"  access-decision-manager-ref="accessDecisionManager" entry-point-ref="sysLoginUrlAuthenticationEntryPoint">
+        <security:csrf disabled="true"/>
         <security:logout                invalidate-session="true" logout-success-url="/security/" delete-cookies="true" logout-url="/security/logout"/>
         <security:anonymous             enabled="false"/>
         <security:session-management    session-authentication-strategy-ref="compositeSessionAuthenticationStrategy"/>
@@ -66,32 +68,36 @@
             <list>
                 <!--<bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">-->
                 <bean class="com.lance.common.security.handler.SysConcurrentSessionStrategy">
-                    <constructor-arg    ref="sessionRegistry"/>
+                    <constructor-arg    ref="sessionRegister"/>
                     <property           name="maximumSessions"              value="1" />
                     <property           name="exceptionIfMaximumExceeded"   value="false" />
                 </bean>
                 <bean class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy">
                 </bean>
                 <bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
-                    <constructor-arg ref="sessionRegistry"/>
+                    <constructor-arg ref="sessionRegister"/>
                 </bean>
             </list>
         </constructor-arg>
     </bean>
-    <bean id="sessionRegistry"              class="com.lance.common.security.handler.SysSessionRegistryHandler"/>
+    <!--<bean id="sessionRegistry"              class="com.lance.common.security.handler.SysSessionRegistryHandler"/>-->
 <!--*******************************  requestCache  end **************************************************************-->
 
 
 <!--*******************************  filter  begin ******************************************************************-->
-    <bean id="sysConcurrentSessionFilter"   class="com.lance.common.security.filter.SysConcurrentSessionFilter"/>
+    <bean id="sysConcurrentSessionFilter"   class="com.lance.common.security.filter.SysConcurrentSessionFilter">
+        <property name="expiredUrl" value="/front/expired"/>
+        <property name="sessionRegistry" ref="sessionRegister"/>
+    </bean>
     <bean id="sysLoginFilter"               class="com.lance.common.security.filter.SysLoginFilter">
+        <constructor-arg name="authenticationUrl" value="/checkLogin"/>
         <property name="authenticationManager" ref="authenticationManager"/>
     </bean>
     <bean id="filterSecurityInterceptor"    class="com.lance.common.security.filter.SysFilterSecurityInterceptor">
-        <property name="securityMetadataSource" ref="sysFilterInvocationSecurityMetadataSource"/>
+       <!-- <property name="securityMetadataSource" ref="sysFilterInvocationSecurityMetadataSource"/>
         <property name="rejectPublicInvocations" value="true"/>
         <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>-->
     </bean>
 <!--*******************************  filter  end ********************************************************************-->
     <security:authentication-manager alias="authenticationManager">
@@ -107,4 +113,5 @@
     </bean>
     <bean id="accountService" class="com.lance.persistence.service.impl.AccountServiceImpl"/>
     <bean id="sysFilterInvocationSecurityMetadataSource" class="com.lance.common.security.filter.SysFilterInvocationSecurityMetadataSource"/>
+    <bean id="sessionRegister" class="org.springframework.security.core.session.SessionRegistryImpl"/>
 </beans>

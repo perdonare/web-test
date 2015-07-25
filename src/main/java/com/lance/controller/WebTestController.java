@@ -83,7 +83,6 @@ public class WebTestController {
         users.add(user);
         users.add(user);
         UsernamePasswordAuthenticationFilter a;
-        DaoAuthenticationProvider
         return users;
     }
 }

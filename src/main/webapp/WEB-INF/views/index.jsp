@@ -5,6 +5,7 @@
     <title></title>
 </head>
 <body>
-<% response.sendRedirect("login"); %>
+    index
+<a href="/login/">登录</a>
 </body>
 </html>
