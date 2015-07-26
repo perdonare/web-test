@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		  http://www.springframework.org/schema/beans/spring-beans.xsd
+		  http://www.springframework.org/schema/security
+		  http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:debug/>
+    <security:http pattern="/loginForm" security="none"/>
+    <security:http pattern="/index" security="none"/>
+    <security:http pattern="/" security="none"></security:http>
+    <security:http access-decision-manager-ref="accessDecisionManager"  auto-config="false" entry-point-ref="loginEntryPoint">
+        <security:csrf disabled="true"/>
+        <security:custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
+    </security:http>
+
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider  ref="authenticationProvider">
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailService"/>
+        <property name="hideUserNotFoundExceptions" value="false"/>
+    </bean>
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg name="decisionVoters">
+            <list>
+                <bean name="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+                <bean name="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="userDetailService" class="com.lance.common.security.UserDetailService">
+        <property name="accountService" ref="accountServiceImpl"/>
+    </bean>
+    <!--<bean id="loginFilter" class="com.lance.common.security.filter.LoginFilter">-->
+    <bean id="loginFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+        <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+    </bean>
+
+    <bean id="authenticationSuccessHandler" class="com.lance.common.security.handler.LoginSuccessHandler">
+        <property name="defaultTargetUrl" value="/index"/>
+    </bean>
+    <bean id="authenticationFailureHandler" class="com.lance.common.security.handler.LoginFailHandler">
+        <property name="defaultFailureUrl" value="/loginForm"/>
+    </bean>
+    <bean id="loginEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <constructor-arg name="loginFormUrl" value="/loginForm"/>
+    </bean>
+</beans>

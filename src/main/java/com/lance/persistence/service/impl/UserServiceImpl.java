@@ -3,7 +3,6 @@ package com.lance.persistence.service.impl;
 import com.lance.persistence.mapper.UserMapper;
 import com.lance.persistence.model.User;
 import com.lance.persistence.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
