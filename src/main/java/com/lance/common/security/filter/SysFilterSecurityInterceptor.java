@@ -4,7 +4,12 @@ import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.access.intercept.RunAsManager;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
@@ -17,20 +22,24 @@ import java.io.IOException;
  * Created by perdonare on 2015/7/4.
  */
 public class SysFilterSecurityInterceptor extends FilterSecurityInterceptor implements Filter{
-    private static final String APPLIED = "applied";
+    private static final String APPLIED = "applied_authentication";
 
 
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        chain.doFilter(request,response);
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        String url = httpServletRequest.getRequestURL().toString();
+        if (url.equals("/") || url.equals("/login/loginForm") || url.equals("/index.jsp")){
+            return;
+        }
         FilterInvocation fi = new FilterInvocation(request,response,chain);
         invoke(fi);
     }
 
     public void invoke(FilterInvocation fi) throws IOException, ServletException {
         HttpServletRequest request = fi.getRequest();
-        if (request!=null && request.getAttribute(APPLIED) == null){
+        if (request!=null && request.getAttribute(APPLIED) != null){
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
         } else {
             if (fi.getRequest() != null) {
@@ -63,7 +72,7 @@ public class SysFilterSecurityInterceptor extends FilterSecurityInterceptor impl
 
     @Override
     public Class<?> getSecureObjectClass() {
-        return SysFilterSecurityInterceptor.class;
+        return FilterInvocation.class;
     }
 
     @Override

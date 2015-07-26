@@ -15,9 +15,9 @@ public class LoginController {
         return "login/login";
     }
 
-    @RequestMapping("")
+    @RequestMapping("/success")
     public String validate(){
-        return "redirect:/index.jsp";
+        return "home";
     }
 
 

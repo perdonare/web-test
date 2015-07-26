@@ -18,12 +18,13 @@ public class SysAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         System.out.println("qqqqqqqqqqqqqq");
         if (!response.isCommitted()){
-            if (errorPage!=null){
+            /*if (errorPage!=null){
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher(errorPage);
                 requestDispatcher.forward(request,response);
             } else {
                 response.sendError(403,e.getMessage());
-            }
+            }*/
+            response.sendRedirect("/index");
         }
     }
 

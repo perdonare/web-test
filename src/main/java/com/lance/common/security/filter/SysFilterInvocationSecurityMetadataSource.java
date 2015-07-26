@@ -16,15 +16,15 @@
 package com.lance.common.security.filter;
 import com.google.common.collect.Lists;
 
-import com.lance.persistence.mapper.MenuPOMapper;
 import com.lance.persistence.model.RolePO;
 import com.lance.persistence.service.IResourceService;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -37,14 +37,18 @@ public class SysFilterInvocationSecurityMetadataSource implements FilterInvocati
         String url = filterInvocation.getRequestUrl();
         List<RolePO> rolePOs = resourceService.getRolsByResource(url);
         if (rolePOs == null || rolePOs.size()==0){
-            return null;
+             throw new AccessDeniedException("拒绝登陆");
         }
         List<ConfigAttribute> configAttributes = Lists.newArrayList();
         for (RolePO rolePO : rolePOs) {
             ConfigAttribute configAttribute = new SecurityConfig(rolePO.getRoleName());
             configAttributes.add(configAttribute);
         }
-        return configAttributes;
+        if (configAttributes.size()>0) {
+            return configAttributes;
+
+        }
+        throw new AccessDeniedException("拒绝登陆");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class SysLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationE
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        System.out.println("===============");
+        System.out.println("======bad =========");
         PrintWriter writer = null;
         String redirectUrl=buildRedirectUrlToLoginPage(request,response,authException);
         String contextPath=request.getContextPath();

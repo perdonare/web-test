@@ -26,7 +26,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM T_SYS_MENU
-        WHERE MENU_NAME = #{resourceName,jdbcType=VARCHAR}
+        WHERE MENU_URL = #{resourceName,jdbcType=VARCHAR}
     </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
