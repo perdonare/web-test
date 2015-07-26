@@ -26,9 +26,9 @@
             <form class="form-signin" action="/login" method="post">
 
                 <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="用 户 名  |  邮 箱" required autofocus>
+                <input type="email" name="username" id="inputEmail" class="form-control" placeholder="用 户 名  |  邮 箱" required autofocus>
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="密  码" required>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密  码" required>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" value="remember-me"> 保持登录
