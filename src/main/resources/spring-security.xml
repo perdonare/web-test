@@ -7,7 +7,7 @@
 		  http://www.springframework.org/schema/security
 		  http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:debug/>
+    <!--<security:debug/>-->
     <security:http pattern="/loginForm" security="none"/>
     <security:http pattern="/index" security="none"/>
     <security:http pattern="/" security="none"></security:http>
