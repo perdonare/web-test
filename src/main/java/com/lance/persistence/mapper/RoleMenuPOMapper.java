@@ -2,7 +2,10 @@ package com.lance.persistence.mapper;
 
 import com.lance.persistence.model.RoleMenuPO;
 
+import java.util.List;
+
 public interface RoleMenuPOMapper {
+    List<RoleMenuPO> getRoleMenuPO(String menuId);
     int deleteByPrimaryKey(String id);
 
     int insert(RoleMenuPO record);

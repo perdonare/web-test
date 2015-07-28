@@ -3,6 +3,7 @@ package com.lance.persistence.service.impl;
 import com.lance.persistence.mapper.AccountPOMapper;
 import com.lance.persistence.model.AccountPO;
 import com.lance.persistence.service.IAccountService;
+import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

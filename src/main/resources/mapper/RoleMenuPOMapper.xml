@@ -10,6 +10,12 @@
   <sql id="Base_Column_List" >
     ID, ROLE_ID, MENU_ID, ACTIONS
   </sql>
+    <select id="getRoleMenuPO" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from T_SYS_ROLE_MENU
+        where MENU_ID = #{menuId,jdbcType=VARCHAR}
+    </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

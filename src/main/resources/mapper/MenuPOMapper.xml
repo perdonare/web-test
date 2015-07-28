@@ -21,7 +21,13 @@
     ID, MENU_NAME, PARENT_MENU_ID, MENU_URL, ICON_ID, MENU_LEVEL, IS_SYSTEM, IS_CLOSE, 
     CREATE_TIME, CHECK_TIME, CREATE_UID, UPDATE_UID, CHECK_UID, CHECK_FLAG
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <select id="getMenuPO" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from T_SYS_MENU
+        where MENU_URL = #{menu,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from T_SYS_MENU

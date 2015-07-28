@@ -14,6 +14,9 @@
     <security:http access-decision-manager-ref="accessDecisionManager"  auto-config="false" entry-point-ref="loginEntryPoint">
         <security:csrf disabled="true"/>
         <security:custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
+        <security:custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+
+        <security:session-management session-authentication-strategy-ref="compositeSessionManagement"/>
     </security:http>
 
 
@@ -37,7 +40,8 @@
     <bean id="userDetailService" class="com.lance.common.security.UserDetailService">
         <property name="accountService" ref="accountServiceImpl"/>
     </bean>
-    <!--<bean id="loginFilter" class="com.lance.common.security.filter.LoginFilter">-->
+
+    <!-- ===================login start ==========================-->
     <bean id="loginFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
@@ -53,4 +57,35 @@
     <bean id="loginEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <constructor-arg name="loginFormUrl" value="/loginForm"/>
     </bean>
+    <!-- ===================login end ==========================-->
+
+    <!--                      session start                       -->
+    <bean id="compositeSessionManagement" class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+        <constructor-arg name="delegateStrategies">
+            <list>
+                <bean id="registerSessionAuthenticationStrategy" class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+                    <constructor-arg name="sessionRegistry" ref="sessionRegistry"/>
+                </bean>
+                <bean id="concurrentSessionControlAuthenticationStrategy" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+                    <constructor-arg name="sessionRegistry" ref="sessionRegistry"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+
+    <!--                      session end                      -->
+
+
+
+    <!--                     authentication                    -->
+    <bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="securityMetadataSource" ref="securityMetadataSource"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+    </bean>
+    <bean id="securityMetadataSource" class="com.lance.common.security.UserSecurityMetaSource">
+        <property name="resourceService" ref="resourceService"/>
+    </bean>
+    <bean id="resourceService" class="com.lance.persistence.service.impl.ResourceServiceImpl"/>
 </beans>
