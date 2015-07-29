@@ -28,7 +28,6 @@ public class UserSecurityMetaSource implements FilterInvocationSecurityMetadataS
                 ConfigAttribute securityConfig = new SecurityConfig(role);
                 attributes.add(securityConfig);
             }
-
         }
         return attributes;
 

@@ -40,6 +40,7 @@
         <mybatis-generator.version>1.3.2</mybatis-generator.version>
         <mybatis-spring.version>1.2.2</mybatis-spring.version>
         <jdbcslog.version>2.5.3</jdbcslog.version>
+        <mysql-connector.version>5.1.36</mysql-connector.version>
 
         <!--web相关-->
         <servlet-api.version>3.1.0</servlet-api.version>
@@ -171,11 +172,11 @@
         </dependency>
 
         <!--persistence-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc</artifactId>
             <version>${oracle-connector.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -191,6 +192,12 @@
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis-spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+
 
         <!--web-->
         <dependency>
