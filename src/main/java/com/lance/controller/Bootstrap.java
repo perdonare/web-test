@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("test/bootstrap")
+@RequestMapping("/test/bootstrap")
 public class Bootstrap {
     @Autowired
     private IUserService userService;
@@ -51,7 +51,7 @@ public class Bootstrap {
     }
 
 
-    @RequestMapping("/json")
+    @RequestMapping("/data/json")
     @ResponseBody
     public ResponseModel<List<UserBO>> userManage(){
         List<UserBO> userBOs = userService.getUsers();

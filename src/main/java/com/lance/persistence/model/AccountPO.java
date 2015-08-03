@@ -48,7 +48,7 @@ public class AccountPO {
     }
 
     public void setLoginAccount(String loginAccount) {
-        this.loginAccount = loginAccount == null ? null : loginAccount.trim();
+        this.loginAccount = loginAccount;
     }
 
     public String getLoginPassword() {
@@ -56,7 +56,7 @@ public class AccountPO {
     }
 
     public void setLoginPassword(String loginPassword) {
-        this.loginPassword = loginPassword == null ? null : loginPassword.trim();
+        this.loginPassword = loginPassword;
     }
 
     public String getLoginType() {
@@ -64,7 +64,7 @@ public class AccountPO {
     }
 
     public void setLoginType(String loginType) {
-        this.loginType = loginType == null ? null : loginType.trim();
+        this.loginType = loginType;
     }
 
     public String getContactPhone() {
@@ -72,7 +72,7 @@ public class AccountPO {
     }
 
     public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone == null ? null : contactPhone.trim();
+        this.contactPhone = contactPhone;
     }
 
     public String getContactEmail() {
@@ -80,7 +80,7 @@ public class AccountPO {
     }
 
     public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail == null ? null : contactEmail.trim();
+        this.contactEmail = contactEmail;
     }
 
     public String getUserId() {
@@ -88,7 +88,7 @@ public class AccountPO {
     }
 
     public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -96,7 +96,7 @@ public class AccountPO {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
     public String getIsSystem() {
@@ -104,7 +104,7 @@ public class AccountPO {
     }
 
     public void setIsSystem(String isSystem) {
-        this.isSystem = isSystem == null ? null : isSystem.trim();
+        this.isSystem = isSystem;
     }
 
     public String getIsClose() {
@@ -112,7 +112,7 @@ public class AccountPO {
     }
 
     public void setIsClose(String isClose) {
-        this.isClose = isClose == null ? null : isClose.trim();
+        this.isClose = isClose;
     }
 
     public Date getCreateTime() {
@@ -136,7 +136,7 @@ public class AccountPO {
     }
 
     public void setCreateUid(String createUid) {
-        this.createUid = createUid == null ? null : createUid.trim();
+        this.createUid = createUid;
     }
 
     public String getUpdateUid() {
@@ -144,7 +144,7 @@ public class AccountPO {
     }
 
     public void setUpdateUid(String updateUid) {
-        this.updateUid = updateUid == null ? null : updateUid.trim();
+        this.updateUid = updateUid;
     }
 
     public String getCheckUid() {
@@ -152,7 +152,7 @@ public class AccountPO {
     }
 
     public void setCheckUid(String checkUid) {
-        this.checkUid = checkUid == null ? null : checkUid.trim();
+        this.checkUid = checkUid;
     }
 
     public String getCheckFlag() {
@@ -160,6 +160,6 @@ public class AccountPO {
     }
 
     public void setCheckFlag(String checkFlag) {
-        this.checkFlag = checkFlag == null ? null : checkFlag.trim();
+        this.checkFlag = checkFlag;
     }
 }

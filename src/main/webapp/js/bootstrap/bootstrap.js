@@ -1,7 +1,7 @@
 var gridObj;
 $(function () {
     gridObj = $.fn.bsgrid.init('searchTable', {
-        url: '/test/bootstrap/json',
+        url: '/test/bootstrap/data/json',
         // autoLoad: false,
         pageSizeSelect: true,
         pageSize: 10

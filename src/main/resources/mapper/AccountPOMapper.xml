@@ -24,7 +24,7 @@
     USER_NAME, IS_SYSTEM, IS_CLOSE, CREATE_TIME, CHECK_TIME, CREATE_UID, UPDATE_UID, 
     CHECK_UID, CHECK_FLAG
   </sql>
-    <select id="queryUsers" resultType="com.lance.persistence.model.AccountPO">
+    <select id="queryUsers" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         FROM T_SYS_ACCOUNT ORDER BY CREATE_TIME DESC

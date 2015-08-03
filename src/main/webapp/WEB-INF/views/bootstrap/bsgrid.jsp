@@ -11,8 +11,9 @@
     <title>bsgrid</title>
     <link   rel="stylesheet"       href="/public/bsgrid/merged/grid.all.min.css"/>
     <script type="text/javascript" src="/public/jquery.min.js"></script>
-    <script type="text/javascript" src="/public/bsgrid/merged/bsgrid.all.min.js"></script>
     <script type="text/javascript" src="/public/bsgrid/js/lang/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="/public/bsgrid/merged/bsgrid.all.min.js"></script>
+
     <script type="text/javascript" src="/js/bootstrap/bootstrap.js"></script>
 </head>
 <body>
