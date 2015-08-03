@@ -15,12 +15,21 @@
  ************************************************************************************/
 package com.lance.controller;
 
+import com.lance.controller.bo.ResponseModel;
+import com.lance.controller.bo.UserBO;
+import com.lance.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("test/bootstrap")
 public class Bootstrap {
+    @Autowired
+    private IUserService userService;
     @RequestMapping("/home")
     public String start(){
         return "bootstrap/start";
@@ -34,5 +43,23 @@ public class Bootstrap {
     @RequestMapping("/test")
     public String test(){
         return "bootstrap/test";
+    }
+
+    @RequestMapping("/bsgrid")
+    public String getData(){
+        return "bootstrap/bsgrid";
+    }
+
+
+    @RequestMapping("/json")
+    @ResponseBody
+    public ResponseModel<List<UserBO>> userManage(){
+        List<UserBO> userBOs = userService.getUsers();
+        ResponseModel<List<UserBO>> responseModel = new ResponseModel(userBOs);
+        return responseModel;
+    }
+
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
     }
 }

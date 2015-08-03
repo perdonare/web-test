@@ -9,6 +9,13 @@
   <sql id="Base_Column_List">
     ID, NAME, PASSWORD
   </sql>
+
+    <select id="queryUsers" resultType="com.lance.persistence.model.User">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM T_CFG_USER ORDER BY
+    </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

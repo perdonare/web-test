@@ -1,7 +1,7 @@
-package com.lance.test.mybatis;
+package com.lance.test.Mybatis;
 
 import com.lance.persistence.model.User;
-import com.lance.persistence.service.IUserService;
+import com.lance.persistence.service.IAccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +16,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MybatisTest {
 
 
-    private IUserService userService;
+    private IAccountService userService;
 
     @Test
     public void testPersistence(){
         User user = new User();
         user.setName("lanceccc");
         user.setPassword("1234");
-        userService.addUser(user);
-        User u = userService.getUser((long) 3);
-        System.out.println(u.getName());
+        //userService.addUser(user);
+        //User u = userService.getUser((long) 3);
+        //System.out.println(u.getName());
     }
     @Autowired
-    public void setUserService(IUserService userService) {
+    public void setUserService(IAccountService userService) {
         this.userService = userService;
     }
 }

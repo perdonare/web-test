@@ -24,6 +24,7 @@
     <!--spring读取属性文件-->
     <!--<util:properties id="app" location="classpath:jdbc.native.properties" />-->
     <context:property-placeholder location="classpath*:jdbc.native.properties"/>
+    <context:property-placeholder location="classpath*:commons.navtive.properties"/>
 
     <tx:annotation-driven/>
 
