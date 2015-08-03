@@ -9,6 +9,13 @@
   <sql id="Base_Column_List" >
     ID, ROLE_ID, ACCOUNT_ID
   </sql>
+
+    <select id="getRoleAccountPO" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from T_SYS_ROLE_ACCOUNT
+        where ACCOUNT_ID = #{accountId,jdbcType=VARCHAR}
+    </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

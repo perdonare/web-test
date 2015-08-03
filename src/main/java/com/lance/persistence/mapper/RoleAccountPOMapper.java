@@ -2,7 +2,10 @@ package com.lance.persistence.mapper;
 
 import com.lance.persistence.model.RoleAccountPO;
 
+import java.util.List;
+
 public interface RoleAccountPOMapper {
+    List<RoleAccountPO> getRoleAccountPO(String accountId);
     int deleteByPrimaryKey(String id);
 
     int insert(RoleAccountPO record);

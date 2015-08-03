@@ -30,7 +30,6 @@ public class UserSecurityMetaSource implements FilterInvocationSecurityMetadataS
             }
         }
         return attributes;
-
     }
 
     @Override
