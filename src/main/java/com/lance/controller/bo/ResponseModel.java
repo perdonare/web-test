@@ -27,21 +27,21 @@ public class ResponseModel<T> {
     private boolean success;
     private int totalRows;
     private int curPage;
-    private List<T> result;
+    private List<T> data;
 
     public ResponseModel(){
         this.success = false;
     }
 
     public ResponseModel(List<T> result){
-        this.result = result;
+        this.data = result;
         this.success = true;
         this.totalRows = result.size();
         this.curPage = 1;
     }
 
     public ResponseModel(List<T> result,int totalRows,int curPage){
-        this.result = result;
+        this.data = result;
         this.totalRows = totalRows;
         this.curPage = curPage;
         this.success = true;
@@ -72,11 +72,11 @@ public class ResponseModel<T> {
         this.curPage = curPage;
     }
 
-    public List<T> getResult() {
-        return result;
+    public List<T> getData() {
+        return data;
     }
 
-    public void setResult(List<T> result) {
-        this.result = result;
+    public void setData(List<T> data) {
+        this.data = data;
     }
 }
