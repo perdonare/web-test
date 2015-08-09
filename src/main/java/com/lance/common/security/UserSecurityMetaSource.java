@@ -1,7 +1,6 @@
 package com.lance.common.security;
 
 import com.google.common.collect.Lists;
-import com.lance.persistence.service.IAccountService;
 import com.lance.persistence.service.IResourceService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
