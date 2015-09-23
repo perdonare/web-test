@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface IAccountService {
     AccountPO getUserByName(String username);
-    public List<String> getRoles(String accountName);
+    List<String> getRoles(String accountName);
+    List<AccountPO> getAccounts(int pageNum,int pageSize);
 }

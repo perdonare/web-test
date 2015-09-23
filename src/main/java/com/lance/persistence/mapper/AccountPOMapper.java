@@ -2,6 +2,9 @@ package com.lance.persistence.mapper;
 
 import com.lance.persistence.model.AccountPO;
 
+import java.util.List;
+import java.util.Map;
+
 public interface AccountPOMapper {
     AccountPO getAccountByName(String accountName);
 
@@ -16,4 +19,6 @@ public interface AccountPOMapper {
     int updateByPrimaryKeySelective(AccountPO record);
 
     int updateByPrimaryKey(AccountPO record);
+
+    List<AccountPO> selectAll(Map map);
 }

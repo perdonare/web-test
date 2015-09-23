@@ -1,6 +1,7 @@
 package com.lance.persistence.service.impl;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.lance.persistence.mapper.AccountPOMapper;
 import com.lance.persistence.mapper.RoleAccountPOMapper;
 import com.lance.persistence.mapper.RolePOMapper;
@@ -9,11 +10,9 @@ import com.lance.persistence.model.RoleAccountPO;
 import com.lance.persistence.model.RolePO;
 import com.lance.persistence.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by perdonare on 2015/7/26.
@@ -46,5 +45,13 @@ public class AccountServiceImpl implements IAccountService{
             }
         }
         return roles;
+    }
+
+    @Override
+    public List<AccountPO> getAccounts(int pageNum, int pageSize) {
+        Map<String,Object> map = Maps.newHashMap();
+        map.put("startPage",pageNum);
+        map.put("endPage",pageNum+pageSize);
+        return  accountPOMapper.selectAll(map);
     }
 }

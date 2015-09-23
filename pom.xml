@@ -25,6 +25,8 @@
         <commons-beanutils.version>1.9.2</commons-beanutils.version>
         <commons-math3.version>3.5</commons-math3.version>
         <guava.version>18.0</guava.version>
+        <aspectjweaver.version>1.7.0</aspectjweaver.version>
+
 
         <!--spring包-->
         <spring.version>4.1.6.RELEASE</spring.version>
@@ -46,7 +48,13 @@
         <servlet-api.version>3.1.0</servlet-api.version>
         <jsp-api.version>2.2</jsp-api.version>
         <jstl.version>1.2</jstl.version>
-        <jackson.version>2.5.3</jackson.version>
+        <jackson.version>2.3.1</jackson.version>
+        <!--<jackson.version>2.5.3</jackson.version>-->
+
+        <!--log-->
+        <slf4j.version>1.7.5</slf4j.version>
+        <logback.version>1.0.13</logback.version>
+        <jdbcdslog.version>1.0.6.2</jdbcdslog.version>
 
         <!--lucene-->
         <lucene.version>5.1.0</lucene.version>
@@ -56,6 +64,8 @@
 
         <!--缓存连接池相关-->
         <!--<c3p0.version></c3p0.version>-->
+        <!--other-->
+        <lombok.version>1.16.4</lombok.version>
 
     </properties>
 
@@ -170,10 +180,34 @@
             <artifactId>cglib-nodep</artifactId>
             <version>${cglib-nodep.version}</version>
         </dependency>
-
-        <!--persistence-->
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
             <version>${oracle-connector.version}</version>
         </dependency>
@@ -247,6 +281,45 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--other-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <!--log-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.usc</groupId>
+            <artifactId>jdbcdslog</artifactId>
+            <version>${jdbcdslog.version}</version>
         </dependency>
     </dependencies>
 

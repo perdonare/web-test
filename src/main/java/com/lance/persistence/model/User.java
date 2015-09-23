@@ -1,6 +1,10 @@
 package com.lance.persistence.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+    private static final long serialVersionUID = 4182752337010638593L;
+
     private Long id;
 
     private String name;
@@ -29,5 +33,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

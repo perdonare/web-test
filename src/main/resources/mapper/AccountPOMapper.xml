@@ -25,6 +25,14 @@
     CHECK_UID, CHECK_FLAG
   </sql>
 
+  <select id="selectAll" parameterType="hashmap" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_SYS_ACCOUNT
+    where rownum &lt; #{endPage,jdbcType=VARCHAR}
+    AND rownum >= #{startPage,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

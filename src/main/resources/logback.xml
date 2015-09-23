@@ -51,7 +51,7 @@
     <logger name="org.jdbcdslog.StatementLogger" level="debug"/>
     <logger name="org.jdbcdslog.ResultSetLogger" level="debug" additivity="true" />
     <logger name="com.lance">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="normalFile" />
         <appender-ref ref="errorFile" />
     </logger>
