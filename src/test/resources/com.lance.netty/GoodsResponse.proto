@@ -1,0 +1,10 @@
+package com.lance.netty;
+option java_package = "com.lance.netty.protobuf";
+option java_outer_classname = "GoodsResp";
+
+message GoodsResponse{
+    required int32 id = 1;
+    required string name = 2;
+    required int32 num =3;
+    required string responseCode=4;
+}

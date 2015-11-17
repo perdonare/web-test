@@ -26,6 +26,8 @@
         <commons-math3.version>3.5</commons-math3.version>
         <guava.version>18.0</guava.version>
         <aspectjweaver.version>1.7.0</aspectjweaver.version>
+        <javassist.version>3.20.0-GA</javassist.version>
+        <protobuf.version>3.0.0-beta-1</protobuf.version>
 
 
         <!--spring包-->
@@ -50,6 +52,7 @@
         <jstl.version>1.2</jstl.version>
         <jackson.version>2.3.1</jackson.version>
         <!--<jackson.version>2.5.3</jackson.version>-->
+        <netty.version>5.0.0.Alpha1</netty.version>
 
         <!--log-->
         <slf4j.version>1.7.5</slf4j.version>
@@ -123,6 +126,17 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${javassist.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+
 
         <!--spring-->
         <dependency>
@@ -257,6 +271,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
 
         <!--lucene-->
         <dependency>
@@ -336,6 +355,13 @@
 
         <!--plugins-->
         <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
