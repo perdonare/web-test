@@ -65,7 +65,7 @@
         <!--缓存连接池相关-->
         <!--<c3p0.version></c3p0.version>-->
         <!--other-->
-        <lombok.version>1.16.4</lombok.version>
+        <lombok.version>1.16.6</lombok.version>
 
     </properties>
 
@@ -288,6 +288,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+            <!--<scope>compile</scope>-->
         </dependency>
 
         <!--log-->
