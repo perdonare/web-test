@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--<bean id="userModel" name="userAlias" class="com.lance.test.spring.UserModel"/>-->
+
+    <!--<alias name="userAlias" alias="myAlias" />-->
+
+
+    <!--<bean id="userFactory" class="com.lance.test.spring.UserModelFactory" factory-method="getUserFactory"/>-->
+    <!--<bean id="userFactory" class="com.lance.test.spring.UserModelFactory" />-->
+
+    <!--<bean id="userModel" factory-bean="userFactory" factory-method="getUserModel" />-->
+    <!--<bean id="userModel2" factory-bean="userFactory" factory-method="getUserModel1" />-->
+
+    <!--<bean id="modelTwo" class="com.lance.test.spring.TestModelTwo" depends-on="modelOne"/>-->
+    <!--<bean id="modelTwo" class="com.lance.test.spring.TestModelTwo" autowire="byType"/>-->
+
+    <!--<bean id="modelOne" class="com.lance.test.spring.TestModelOne"  autowire-candidate="false"/>-->
+    <!--<bean id="modelThree" class="com.lance.test.spring.TestModelThree" scope="prototype" />-->
+    <!--<bean id="modelFour" class="com.lance.test.spring.TestModelFour" >-->
+        <!--<lookup-method name="getTestModelThree" bean="modelThree"/>-->
+    <!--</bean>-->
+
+    <bean id="modelFive" class="com.lance.test.spring.TestModelFive">
+        <replaced-method name="compute" replacer="modelSix">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+
+    <bean id="modelSix" class="com.lance.test.spring.TestModelSix" />
+
+</beans>
