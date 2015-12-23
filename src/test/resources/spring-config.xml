@@ -18,6 +18,7 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <context:component-scan base-package="com.lance.test.spring"/>
     <!--<bean id="userModel" name="userAlias" class="com.lance.test.spring.UserModel"/>-->
 
     <!--<alias name="userAlias" alias="myAlias" />-->
@@ -45,5 +46,6 @@
     </bean>
 
     <bean id="modelSix" class="com.lance.test.spring.TestModelSix" />
+    <!--<bean id="modelSeven" class="com.lance.test.spring.TestModelSeven" />-->
 
 </beans>

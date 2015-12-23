@@ -85,4 +85,38 @@ public class IocTest {
         System.out.println(value);
     }
 
+    /**
+     * @postConstruct 和 @preDestroy测试
+     */
+    @Test
+    public void testConstructAndDestroy() throws InterruptedException {
+        TestModelSeven testModelSeven = context.getBean(TestModelSeven.class);
+        System.out.println(testModelSeven);
+        Thread.sleep(50000);
+    }
+
+    /**
+     * 通过@Bean来生成bean
+     */
+    @Test
+    public void testAnnotationCreateBean() {
+        TestModelNine testModelNine = context.getBean(TestModelNine.class);
+        System.out.println(testModelNine);
+    }
+
+    /**
+     * 构造函数注入
+     */
+    @Test
+    public void testConstructWire() {
+        TestModelTen testModelTen = context.getBean(TestModelTen.class);
+        System.out.println(testModelTen);
+    }
+
+    @Test
+    public void testApplicationContextWire() {
+        TestModelOneOne testModelOneOne = context.getBean(TestModelOneOne.class);
+
+        testModelOneOne.contextFun();
+    }
 }
