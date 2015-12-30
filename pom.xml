@@ -44,6 +44,9 @@
         <jdbcslog.version>2.5.3</jdbcslog.version>
         <mysql-connector.version>5.1.36</mysql-connector.version>
 
+        <!--distribution-->
+        <kafka.version>0.9.0.0</kafka.version>
+
         <!--web相关-->
         <servlet-api.version>3.1.0</servlet-api.version>
         <jsp-api.version>2.2</jsp-api.version>
@@ -232,6 +235,12 @@
             <version>${mysql-connector.version}</version>
         </dependency>-->
 
+        <!--distribution-->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.10</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
 
         <!--web-->
         <dependency>
