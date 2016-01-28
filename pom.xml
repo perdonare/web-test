@@ -205,12 +205,13 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjweaver.version}</version>
         </dependency>
-
+<!--
         <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
             <version>${oracle-connector.version}</version>
         </dependency>
+		-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
