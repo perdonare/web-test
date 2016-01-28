@@ -1,104 +1,70 @@
 package com.lance.test.kafka;
 
-import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 
 /**
- * Created by perdonare on 2015/12/27.
+ * Created by perdonare on 2015/12/23.
  */
 public class KafkaTest {
-    private static final String PRODUCER_PATH="com/lance/kafka/kafka-producer.properties";
-    private static final String CONSUMER_PATH="com/lance/kafka/kafka-consumer.properties";
-    private Producer<String,String> producer;
-    //private Consumer<String,String> consumer;
+    private KafkaProducer<String,String> producer;
+    private KafkaConsumer<String,String> consumer;
     @Before
-    public void createProducerAndConsumer() throws IOException {
-
-        //create producer
-        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream(PRODUCER_PATH);
+    public void init() throws IOException {
+        //默认使用类的包下的路径作为路径 所以要加 /
+        //InputStream inputStream = KafkaTest.class.getResourceAsStream("/kafka.properties");
+        //默认从classPath根下取  不能加 /
+        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream("kafka.properties");
         Properties properties = new Properties();
         properties.load(inputStream);
-        Producer<String,String> producer = new KafkaProducer<String,String>(properties);
-        this.producer = producer;
 
-        //create consumer
-        inputStream = KafkaTest.class.getClassLoader().getResourceAsStream(CONSUMER_PATH);
+        //producer
+        producer = new KafkaProducer(properties);
+
         properties.load(inputStream);
-        Consumer<String,String> consumer = new KafkaConsumer<String, String>(properties);
-        //this.consumer = consumer;
+        //consumer
+        consumer = new KafkaConsumer<>(properties);
     }
-
     @Test
     public void testProducer() {
-
-        Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("acks", "all");
-        props.put("retries", 0);
-        props.put("batch.size", 16384);
-        props.put("linger.ms", 1);
-        props.put("buffer.memory", 33554432);
-        props.put("key.serializer",
-                "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer",
-                "org.apache.kafka.common.serialization.StringSerializer");
-
-        Producer<String, String> producer = new KafkaProducer(props);
-        for (int i = 0; i < 10; i++) {
-            ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>(
-                    "test", Integer.toString(i), Integer.toString(i));
-            System.out.println("============="+producerRecord);
-            producer.send(producerRecord);
-        }
-
-        producer.close();
-
-
-
-/*
-        ProducerRecord<String,String> producerRecord = new ProducerRecord<String, String>("test","message","helloworld");
-        for (int i = 0; i < 100000; i++) {
-            producer.send(producerRecord);
-            System.out.println("send =====================");
-        }
-
-        producer.close();*/
+        ProducerRecord<String,String> record = new ProducerRecord<>("test","name","lance");
+        producer.send(record);
     }
 
     @Test
     public void testConsumer() {
-
-        Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("group.id", "test1");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "1000");
-        props.put("session.timeout.ms", "30000");
-        props.put("key.deserializer",
-                "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer",
-                "org.apache.kafka.common.serialization.StringDeserializer");
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(
-                props);
         consumer.subscribe(Arrays.asList("test"));
+        List<ConsumerRecord<String, String>> buffer = new ArrayList<>();
+        int commitInterval = 1;
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
-                System.out.printf("===============offset = %d, key = %s, value = %s \n",
-                        record.offset(), record.key(), record.value());
+            if (!records.isEmpty()) {
+                Iterator<ConsumerRecord<String,String>> iterator = records.iterator();
+                while (iterator.hasNext()) {
+                    ConsumerRecord<String,String> record = iterator.next();
+                    buffer.add(record);
+                    if (buffer.size() >= commitInterval) {
+                        show(buffer);
+                        consumer.commitSync();
+                        buffer.clear();
+                    }
+                }
+            }
+        }
+    }
+
+    private void show(List<ConsumerRecord<String, String>> buffer) {
+        for (ConsumerRecord<String,String> consumerRecord : buffer) {
+            System.out.println("===="+consumerRecord.toString());
         }
     }
 }
