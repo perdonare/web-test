@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.TopicPartition;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -31,15 +32,20 @@ public class KafkaTest {
     }
     @Test
     public void testProducer() throws IOException, InterruptedException {
-        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream("kafka.properties");
+        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream("com/lance/kafka/kafka-producer.properties");
         Properties properties = new Properties();
         properties.load(inputStream);
 
         //producer
         producer = new KafkaProducer(properties);
 
-        for(int i=0;i<2;i++) {
-            ProducerRecord<String,String> record = new ProducerRecord<>("tes","name","lance");
+        for(int i=0;i<100;i++) {
+            ProducerRecord<String,String> record;
+            if (i%2==0) {
+                record = new ProducerRecord<>("test",1,"name",i+"");
+            } else {
+                record = new ProducerRecord<>("test",0,"name",i+"");
+            }
             System.out.println(record);
             producer.send(record);
 
@@ -50,7 +56,7 @@ public class KafkaTest {
 
     @Test
     public void testConsumer() throws IOException {
-        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream("kafka.properties");
+        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream("com/lance/kafka/kafka-consumer.properties");
         Properties properties = new Properties();
         properties.load(inputStream);
         consumer = new KafkaConsumer<>(properties);
@@ -74,9 +80,96 @@ public class KafkaTest {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Test
+    public void testConsumerPartition() throws IOException {
+        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream("com/lance/kafka/kafka-consumer.properties");
+        Properties properties = new Properties();
+        properties.load(inputStream);
+        consumer = new KafkaConsumer<>(properties);
+        TopicPartition topicPartition = new TopicPartition("test",0);
+        List<TopicPartition> topicPartitions = new ArrayList<>();
+        topicPartitions.add(topicPartition);
+        consumer.assign(topicPartitions);
+        //consumer.subscribe(Arrays.asList("test"));
+
+        List<ConsumerRecord<String, String>> buffer = new ArrayList<>();
+        int commitInterval = 1;
+        while (true) {
+            ConsumerRecords<String, String> records = consumer.poll(10);
+            if (!records.isEmpty()) {
+                Iterator<ConsumerRecord<String,String>> iterator = records.iterator();
+                while (iterator.hasNext()) {
+                    ConsumerRecord<String,String> record = iterator.next();
+                    buffer.add(record);
+                    if (buffer.size() >= commitInterval) {
+                        show(buffer);
+                        consumer.commitSync();
+                        buffer.clear();
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testConsumerPartition2() throws IOException {
+        InputStream inputStream = KafkaTest.class.getClassLoader().getResourceAsStream("com/lance/kafka/kafka-consumer.properties");
+        Properties properties = new Properties();
+        properties.load(inputStream);
+        consumer = new KafkaConsumer<>(properties);
+        //consumer.subscribe(Arrays.asList("test"));
+        TopicPartition topicPartition = new TopicPartition("test",1);
+        List<TopicPartition> topicPartitions = new ArrayList<>();
+        topicPartitions.add(topicPartition);
+        consumer.assign(topicPartitions);
+        List<ConsumerRecord<String, String>> buffer = new ArrayList<>();
+        int commitInterval = 1;
+        while (true) {
+            ConsumerRecords<String, String> records = consumer.poll(10);
+            if (!records.isEmpty()) {
+                Iterator<ConsumerRecord<String,String>> iterator = records.iterator();
+                while (iterator.hasNext()) {
+                    ConsumerRecord<String,String> record = iterator.next();
+                    buffer.add(record);
+                    if (buffer.size() >= commitInterval) {
+                        show(buffer);
+                        consumer.commitSync();
+                        buffer.clear();
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void show(List<ConsumerRecord<String, String>> buffer) {
         for (ConsumerRecord<String,String> consumerRecord : buffer) {
-            System.out.println("===="+consumerRecord.toString());
+            System.out.println("==============="+consumerRecord.toString());
         }
     }
 
