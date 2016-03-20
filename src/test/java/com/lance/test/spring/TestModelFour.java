@@ -3,7 +3,7 @@ package com.lance.test.spring;
 /**
  * Created by perdonare on 2015/12/13.
  */
-public abstract class TestModelFour {
+public abstract class TestModelFour extends TestModelOne{
     private String name;
 
     private TestModelThree testModelThree;
