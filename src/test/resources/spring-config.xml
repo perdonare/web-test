@@ -20,7 +20,11 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd">
-    <context:component-scan base-package="com.lance.test.spring"/>
+
+
+
+    <import resource="rabbitmq-config.xml"/>
+    <context:component-scan base-package="com.lance.test"/>
     <cache:annotation-driven />
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
         <property name="caches">
