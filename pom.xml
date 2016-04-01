@@ -251,6 +251,17 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.10</artifactId>
             <version>${kafka.version}</version>
+            <exclusions>
+
+                <exclusion>
+                    <artifactId>zookeeper</artifactId>
+                    <groupId>org.apache.zookeeper</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--web-->
@@ -346,6 +357,12 @@
             <groupId>com.googlecode.usc</groupId>
             <artifactId>jdbcdslog</artifactId>
             <version>${jdbcdslog.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>3.1.0</version>
         </dependency>
     </dependencies>
 
