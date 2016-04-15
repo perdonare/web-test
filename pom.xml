@@ -31,9 +31,10 @@
         <!--spring包-->
         <spring.version>4.1.6.RELEASE</spring.version>
         <spring-security.version>4.0.1.RELEASE</spring-security.version>
-        <spring-batch.version>3.0.3.RELEASE</spring-batch.version>
+        <spring-batch.version>3.0.6.RELEASE</spring-batch.version>
         <cglib-nodep.version>3.1</cglib-nodep.version>
         <!--<aspectjweaver.version></aspectjweaver.version>-->
+        <c3p0.version>0.9.1.2</c3p0.version>
 
         <!--persistence包-->
         <oracle-connector.version>6</oracle-connector.version>
@@ -215,13 +216,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjweaver.version}</version>
         </dependency>
-<!--
         <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
             <version>${oracle-connector.version}</version>
         </dependency>
-		-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -243,7 +242,11 @@
             <version>${mysql-connector.version}</version>
         </dependency>-->
 
-
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+        </dependency>
         <!--web-->
         <dependency>
             <groupId>javax.servlet</groupId>
