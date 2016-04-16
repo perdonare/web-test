@@ -16,9 +16,9 @@
 
     <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="oracle.jdbc.OracleDriver"/>
-           <property name="jdbcUrl" value="jdbc:oracle:thin:@192.178.106.125:1521:orcl"/>
-           <property name="user" value="crpay"/>
-           <property name="password" value="crpay"/>
+           <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+           <property name="user" value="C##web"/>
+           <property name="password" value="web"/>
        <!-- <property name="jdbcUrl" value="jdbc:oracle:thin:@116.228.151.161:21521:test"/>
         <property name="user" value="btupayprod"/>
         <property name="password" value="1234"/>-->
@@ -42,11 +42,12 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-
+    <!--isolation-level-for-create="SERIALIZABLE"-->
     <batch:job-repository  id="jobRepository"
                     data-source="datasource"
                     transaction-manager="transactionManager"
-                    isolation-level-for-create="SERIALIZABLE"
+
+                    isolation-level-for-create="READ_COMMITTED"
                     table-prefix="BATCH_"
                     max-varchar-length="1000"/>
 
