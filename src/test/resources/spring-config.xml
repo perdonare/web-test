@@ -16,7 +16,7 @@
 
     <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="oracle.jdbc.OracleDriver"/>
-           <property name="jdbcUrl" value="jdbc:oracle:thin:@192.178.106.125:1521:orcl"/>
+           <property name="jdbcUrl" value="jdbc:oracle:thin:@192.178.106.126:1521:orcl"/>
            <property name="user" value="crpay"/>
            <property name="password" value="crpay"/>
        <!-- <property name="jdbcUrl" value="jdbc:oracle:thin:@116.228.151.161:21521:test"/>

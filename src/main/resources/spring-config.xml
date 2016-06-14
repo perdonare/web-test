@@ -31,7 +31,7 @@
     <tx:annotation-driven/>
 
     <!--持久化相关的配置-->
-    <import resource="spring-persistence.xml"/>
+    <!--<import resource="spring-persistence.xml"/>-->
     <!--<import resource="spring-security.xml"/>-->
 
 
