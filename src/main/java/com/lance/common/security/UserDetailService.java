@@ -19,7 +19,7 @@ public class UserDetailService implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AccountPO accountPO = accountService.getUserByName(username);
         if ( accountPO == null ) {
-            throw new UsernameNotFoundException("用户："  + username + "未找到");
+            throw new UsernameNotFoundException("");
         }
         UserDetails userDetails = createUserDetails(accountPO);
         return userDetails;

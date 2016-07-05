@@ -26,19 +26,13 @@ public class Response<T> implements Serializable{
     }
 
     /**
-     * 标识成功或失败
+     * 测试
      */
     private boolean success ;
-    /**
-     * 业务码
-     */
+
     private String errorCode;
-    /**
-     * 描述
-     */
+
     private String errorMsg;
-    /**
-     * 具体业务数据
-     */
+
     private T body;
 }
