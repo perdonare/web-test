@@ -1,62 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-    <property name="LOG_HOME" value="${log.path}/" />
-    <!-- 控制台输出 -->   
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-       <!-- 日志输出编码 -->  
-       <Encoding>UTF-8</Encoding>   
-        <layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{reqIp}] [%X{reqTime}] %logger{0} - %msg%n
-			</pattern>
-        </layout>   
-    </appender>
 
-    <!-- 按照每天生成日志文件 -->
-    <appender name="normalFile"  class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <Encoding>UTF-8</Encoding>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>DENY</onMatch>
-            <onMismatch>ACCEPT</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--日志文件输出的文件名-->
-            <FileNamePattern>${log.path}/${log.app.name}_%d{yyyy-MM-dd}.log</FileNamePattern>
-            <MaxHistory>30</MaxHistory>
-        </rollingPolicy>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{reqIp}] [%X{reqTime}] %logger{0} - %msg%n
-            </pattern>
-        </layout>
-    </appender>
-    <appender name="errorFile"  class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <Encoding>UTF-8</Encoding>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--日志文件输出的文件名-->
-            <FileNamePattern>${log.path}/${log.app.name}_%d{yyyy-MM-dd}_error.log</FileNamePattern>
-            <MaxHistory>30</MaxHistory>
-        </rollingPolicy>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{reqIp}] [%X{reqTime}] %logger{0} - %msg%n
-            </pattern>
-        </layout>
-    </appender>
+	<property name="context_name" value="cf-billcenter" />
 
-    <logger name="org.jdbcdslog.ConnectionLogger" level="info"/>
-    <logger name="org.jdbcdslog.StatementLogger" level="info"/>
-    <logger name="org.jdbcdslog.ResultSetLogger" level="info" additivity="true" />
-    <logger name="com.lance">
-        <level value="info" />
-        <appender-ref ref="normalFile" />
-        <appender-ref ref="errorFile" />
-    </logger>
-    <!-- 日志输出级别 -->
-    <root level="info">
-        <appender-ref ref="console" />
-    </root>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="utf-8">
+			<!-- encoder 可以指定字符集，对于中文输出有意义 -->
+			<!-- %.-1level 只显示信息级别的首字母,%-5level 左对齐显示信息级别全称 -->
+			<!-- 如需自定义关键字，用 %mdc{键名} 表示,程序中用MDC.put("键名","键值")设置，可动态设置 [%logger:%line]-->
+			<Pattern>[%date] [%thread] [%-5level] --%mdc{client} [%X{TRACE_LOG_ID}] %logger %line %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+
+
+	<logger name="com.bestpay.cf.billcenter" level="${LOG_LEVEL_VALUE}" additivity="false">
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="billcenter" />
+		<appender-ref ref="stdout" />
+	</root>
+
 </configuration>

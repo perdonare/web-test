@@ -2,37 +2,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd
-        http://www.springframework.org/schema/util
-        http://www.springframework.org/schema/util/spring-util.xsd">
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd
+       " >
+    <context:component-scan base-package="com.lance"/>
+    <cache:annotation-driven/>
 
-    <!--使用注解来管理bean-->
-    <!--<context:annotation-config />-->
-    <!--注解扫描的基包-->
-    <context:component-scan base-package="com.lance">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-    <!--spring读取属性文件-->
-    <!--<util:properties id="app" location="classpath:jdbc.native.properties" />-->
-    <context:property-placeholder location="classpath*:jdbc.native.properties"/>
-    <context:property-placeholder location="classpath*:commons.navtive.properties"/>
-
-    <tx:annotation-driven/>
-
-    <!--持久化相关的配置-->
-    <import resource="spring-persistence.xml"/>
-    <!--<import resource="spring-security.xml"/>-->
-
-
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" name="default"/>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" name="personal"/>
+            </set>
+        </property>
+    </bean>
 </beans>
