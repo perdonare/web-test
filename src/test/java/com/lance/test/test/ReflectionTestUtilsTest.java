@@ -18,8 +18,6 @@ public class ReflectionTestUtilsTest {
     private ReflectionTestUtilsDemo reflectionTestUtilsDemo;
 
 
-
-
     @Test
     public void testReflectionTestUtils() {
         //可以设置私有函数的参数值
