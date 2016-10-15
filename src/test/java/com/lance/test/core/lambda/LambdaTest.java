@@ -33,7 +33,6 @@ public class LambdaTest {
     @Test
     public void testFunctionalInterface() {
         fun((e)-> System.out.println(e+e));
-
     }
 
     public void fun(FunctionalInterface functionalInterface) {

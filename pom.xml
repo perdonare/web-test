@@ -61,11 +61,17 @@
 
         <!--测试相关包-->
         <junit.version>4.12</junit.version>
+        <!--<junit.version>5.0.0-ALPHA</junit.version>-->
+
+        <!-- https://mvnrepository.com/artifact/org.junit/junit5-api -->
+
+
+
 
         <!--缓存连接池相关-->
         <!--<c3p0.version></c3p0.version>-->
         <!--other-->
-        <lombok.version>1.16.4</lombok.version>
+        <lombok.version>1.16.6</lombok.version>
 
     </properties>
 
@@ -123,6 +129,7 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+
 
         <!--spring-->
         <dependency>
@@ -206,11 +213,11 @@
             <version>${aspectjweaver.version}</version>
         </dependency>
 
-        <dependency>
+     <!--   <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
             <version>${oracle-connector.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -276,11 +283,17 @@
         </dependency>
 
         <!--test-->
-        <dependency>
+   <!--     <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.junit</groupId>
+            <artifactId>junit5-api</artifactId>
+            <version>5.0.0-ALPHA</version>
         </dependency>
 
         <!--other-->
