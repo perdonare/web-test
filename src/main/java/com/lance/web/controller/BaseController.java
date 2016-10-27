@@ -28,6 +28,4 @@ public class BaseController {
     public String success(){
         return "home";
     }
-
-
 }

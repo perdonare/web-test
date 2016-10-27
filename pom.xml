@@ -296,6 +296,45 @@
             <version>5.0.0-ALPHA</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.baidu.unbiz</groupId>
+            <artifactId>multi-task</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+      <!--  <dependency>
+            <groupId>com.baidu.unbiz</groupId>
+            <artifactId>multi-task</artifactId>
+            <version>1.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>logback-classic</artifactId>
+                    <groupId>ch.qos.logback</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+     <!--   <dependency>
+            <groupId>com.baidu.unbiz</groupId>
+            <artifactId>multi-engine</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baidu.unbiz</groupId>
+            <artifactId>cluster-support</artifactId>
+            <version>1.0.0</version>
+        </dependency>-->
         <!--other-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -333,6 +372,12 @@
             <groupId>com.googlecode.usc</groupId>
             <artifactId>jdbcdslog</artifactId>
             <version>${jdbcdslog.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
