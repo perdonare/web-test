@@ -23,16 +23,4 @@
     <context:component-scan base-package="com.lance">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    <!--spring读取属性文件-->
-    <!--<util:properties id="app" location="classpath:jdbc.native.properties" />-->
-    <context:property-placeholder location="classpath*:jdbc.native.properties"/>
-    <context:property-placeholder location="classpath*:commons.navtive.properties"/>
-
-    <tx:annotation-driven/>
-
-    <!--持久化相关的配置-->
-    <import resource="spring-persistence.xml"/>
-    <!--<import resource="spring-security.xml"/>-->
-
-
 </beans>
