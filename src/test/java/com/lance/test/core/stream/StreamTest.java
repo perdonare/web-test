@@ -2,7 +2,7 @@ package com.lance.test.core.stream;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.gen5.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
